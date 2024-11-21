@@ -1,0 +1,48 @@
+<div class="page-title-area">
+    <div class="container">
+      <div class="page-title-content">
+        <h2>Team</h2>
+        <ul>
+          <li><a routerLink="/">Home </a></li>
+          <li class="active">Team</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="page-shape">
+      <div class="shape1"><img src="assets/images/shape/1.png" alt="shape" /></div>
+      <div class="shape3"><img src="assets/images/shape/3.png" alt="shape" /></div>
+      <div class="shape4"><img src="assets/images/shape/4.png" alt="shape" /></div>
+      <div class="shape5"><img src="assets/images/shape/5.png" alt="shape" /></div>
+      <div class="shape6"><img src="assets/images/shape/6.png" alt="shape" /></div>
+    </div>
+  </div>
+  
+  <section class="team-area pt-100 pb-70">
+    <div class="container">
+      <div class="section-title">
+        <h2>People Who Are Behind The Achievements</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+      </div>
+  
+      <div class="row">
+        <!-- Dinamik olarak ekip üyelerini oluştur -->
+        <div
+          class="col-lg-4 col-md-6"
+          *ngFor="let member of teamMembers"
+        >
+          <div class="single-team">
+            <div class="team-img">
+              <img [src]="member.image" [alt]="member.name" />
+            </div>
+  
+            <div class="team-content">
+              <h3>{{ member.name }}</h3>
+              <p>{{ member.role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

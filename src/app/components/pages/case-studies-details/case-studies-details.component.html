@@ -1,0 +1,53 @@
+<div class="container">
+    <!-- Dinamik Başlık ve Alt Başlık -->
+    <div class="page-title-content">
+      <h2>Case Studies Details</h2>
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li class="active">Case Studies Details</li>
+      </ul>
+    </div>
+  
+    <!-- Case Studies Dinamik İçerik -->
+    <div *ngFor="let caseStudy of caseStudies" class="services-details-area ptb-100">
+      <div class="row">
+        <!-- Görsel -->
+        <div class="col-12">
+          <div class="services-img mb">
+            <img [src]="caseStudy.image" alt="Image">
+          </div>
+        </div>
+  
+        <!-- Metin ve Açıklama -->
+        <div class="col-12">
+          <div class="services-details-text">
+            <h2>{{ caseStudy.title }}</h2>
+            <p *ngFor="let desc of caseStudy.description">{{ desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Sosyal Medya Linkleri -->
+    <div class="scrives-item-3 mt-4">
+      <div class="row align-items-center">
+        <!-- Sosyal Medya İkonları -->
+        <div class="col-lg-6 col-sm-6">
+          <div class="social">
+            <ul class="social-link">
+              <li *ngFor="let social of socialLinks">
+                <a [href]="social.link" target="_blank"><i class="bx" [ngClass]="social.icon"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Paylaşım -->
+        <div class="col-lg-6 col-sm-6">
+          <div class="share">
+            <a href="#" target="_blank"><i class="bx bx-share-alt"></i> Share</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,18 @@
+<div class="row">
+    <div
+      class="col-lg-4 col-sm-6"
+      *ngFor="let service of services"
+    >
+      <div class="single-service">
+        <div class="service-img">
+          <img [src]="service.image" [alt]="service.title" />
+        </div>
+        <div class="service-content">
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          <a [routerLink]="service.link" class="line-bnt">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  

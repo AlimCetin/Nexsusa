@@ -1,0 +1,24 @@
+<section class="client-area ptb-100 bg-color">
+    <div class="container">
+        <div class="section-title">
+            <span>Testimonials</span>
+            <h2>What Our Client’s Say</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div class="client-wrap">
+            <owl-carousel-o [options]="clientWrap">
+                <ng-template
+                    carouselSlide
+                    *ngFor="let testimonial of testimonials"
+                >
+                    <div class="single-client">
+                        <img [src]="testimonial.image" alt="img" />
+                        <p>{{ testimonial.text }}</p>
+                        <h3>{{ testimonial.name }}</h3>
+                        <span>{{ testimonial.position }}</span>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,489 @@
+<section class="banner-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="banner-content">
+                            <h1>{{ bannerData.title }}</h1>
+                            <p>{{ bannerData.description }}</p>
+                            <div class="banner-btn">
+                                <a
+                                    *ngFor="let button of bannerData.buttons"
+                                    [routerLink]="button.link"
+                                    ngClass="box-btn"
+                                >
+                                    {{ button.label }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner-img">
+                            <img
+                                [src]="'assets/images/' + bannerData.imageUrl"
+                                alt="banner-img"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-shape">
+        <div class="shape1">
+            <img src="assets/images/shape/1.png" alt="shape" />
+        </div>
+        <div class="shape2">
+            <img src="assets/images/shape/2.png" alt="shape" />
+        </div>
+        <div class="shape3">
+            <img src="assets/images/shape/3.png" alt="shape" />
+        </div>
+        <div class="shape4">
+            <img src="assets/images/shape/4.png" alt="shape" />
+        </div>
+        <div class="shape5">
+            <img src="assets/images/shape/5.png" alt="shape" />
+        </div>
+        <div class="shape6">
+            <img src="assets/images/shape/6.png" alt="shape" />
+        </div>
+    </div>
+</section>
+
+<section class="home-service-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ ServicesData.title }}</h2>
+            <p>{{ ServicesData.description }}</p>
+        </div>
+
+        <div class="row">
+            <div
+                *ngFor="let service of ServicesData.services"
+                class="col-lg-4 col-sm-6"
+            >
+                <div class="single-service">
+                    <div class="service-img">
+                        <img [src]="service.imageUrl" alt="service" />
+                    </div>
+                    <div class="service-content">
+                        <h3>{{ service.title }}</h3>
+                        <p>{{ service.description }}</p>
+                        <a [routerLink]="service.link" class="line-bnt">{{
+                            ServicesData.readme
+                        }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-company-area bg-color">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="company-content">
+                    <div class="company-tittle">
+                        <h2>{{ companyData.title }}</h2>
+                        <p>{{ companyData.description }}</p>
+                    </div>
+                    <a [routerLink]="companyData.button.link" class="box-btn">{{
+                        companyData.button.label
+                    }}</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="company-img">
+                    <img
+                        [src]="
+                            'assets/images/company/' +
+                            companyData.image.imageUrl
+                        "
+                        alt="company"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="choose-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ chooseData.title }}</h2>
+            <p>{{ chooseData.description }}</p>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="choose-img">
+                    <img
+                        [src]="'assets/images/' + chooseData.imageUrl"
+                        alt="choose"
+                    />
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="choose-content">
+                    <div class="faq-accordion">
+                        <accordion>
+                            <accordion-group
+                                *ngFor="let item of chooseData.questions"
+                                [isOpened]="false"
+                                [heading]="item.title"
+                            >
+                                <p>{{ item.description }}</p>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-process-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ processData.title }}</h2>
+            <p>{{ processData.subTitle }}</p>
+        </div>
+
+        <div class="row">
+            <div
+                *ngFor="let process of processData.workingProcessItems"
+                class="col-lg-3 col-sm-6"
+            >
+                <div class="single-process">
+                    <div class="icon">
+                        <img [src]="process.icon" [alt]="process.title" />
+                        <span
+                            ><img
+                                src="assets/images/process/next.png"
+                                alt="next step"
+                        /></span>
+                    </div>
+                    <div class="content">
+                        <h3>{{ process.title }}</h3>
+                        <p>{{ process.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-case ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ caseData.title }}</h2>
+            <p>{{ caseData.description }}</p>
+        </div>
+        <div class="case">
+            <ngx-tabset>
+                <ngx-tab
+                    *ngFor="let caseStudy of caseData.caseStudies"
+                    [tabTitle]="caseStudy.title"
+                >
+                    <div class="row case-list">
+                        <div
+                            *ngFor="let caseItem of caseStudy.items"
+                            class="col-lg-4 col-sm-6"
+                        >
+                            <div class="single-case">
+                                <div class="case-img">
+                                    <a [routerLink]="caseItem.link">
+                                        <img
+                                            [src]="caseItem.imageUrl"
+                                            [alt]="caseItem.alt"
+                                        />
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <a [routerLink]="caseItem.link">
+                                        <h3>{{ caseItem.title }}</h3>
+                                    </a>
+                                    <p>{{ caseItem.description }}</p>
+                                    <a
+                                        [routerLink]="caseItem.link"
+                                        class="line-bnt"
+                                        >{{ caseItem.linkLabel }}</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tab>
+            </ngx-tabset>
+        </div>
+        <div class="case-btn text-center">
+            <p>
+                {{ caseData.buttonHeader
+                }}<a [routerLink]="caseData.button.link">{{
+                    caseData.button.linkLabel
+                }}</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="feature-area bg-color ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="contnet">
+                    <div class="feature-tittle">
+                        <h2>{{ featureData.title }}</h2>
+                        <p>{{ featureData.description }}</p>
+                    </div>
+                    <ul>
+                        <li *ngFor="let feature of featureData.whoWeAreItem">
+                            <i class="flaticon-correct"></i>
+                            {{ feature.description }}
+                        </li>
+                    </ul>
+                    <a [routerLink]="featureData.buttonLink" class="box-btn">{{
+                        featureData.buttonText
+                    }}</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="feature-img">
+                    <img [src]="featureData.image.imageUrl" alt="feature" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-team-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ teamData.title }}</h2>
+            <p>{{ teamData.description }}</p>
+        </div>
+        <div class="home-team-slider">
+            <owl-carousel-o [options]="teamSlides">
+                <ng-template
+                    carouselSlide
+                    *ngFor="let member of teamData.ourEmployeesItems"
+                >
+                    <div class="single-team">
+                        <div class="team-img">
+                            <img
+                                [src]="'assets/images/team/' + member.imageUrl"
+                                alt="team"
+                            />
+                        </div>
+
+                        <div class="content text-center">
+                            <h3>{{ member.fullName }}</h3>
+                            <p>{{ member.branch }}</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
+
+<section class="client-area ptb-100 bg-color">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ testimonialData.title }}</h2>
+            <p>{{ testimonialData.description }}</p>
+        </div>
+        <div class="client-wrap">
+            <owl-carousel-o [options]="clientWrap">
+                <ng-template
+                    carouselSlide
+                    *ngFor="let client of testimonialData.clientSaysItems"
+                >
+                    <div class="single-client">
+                        <img
+                            [src]="'assets/images/client/' + client.imageUrl"
+                            alt="Image Client"
+                        />
+                        <p>{{ client.description }}</p>
+                        <h3>{{ client.fullName }}</h3>
+                        <span>{{ client.branch }}</span>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
+
+<section class="home-blog-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ blogData.title }}</h2>
+            <p>{{ blogData.description }}</p>
+        </div>
+
+        <div class="row">
+            <div
+                class="col-lg-4 col-md-6"
+                *ngFor="let post of blogData.blogPosts"
+            >
+                <div class="single-blog">
+                    <div class="blog-img">
+                        <a [routerLink]="post.link"
+                            ><img
+                                [src]="post.image.imgSrc"
+                                [alt]="post.image.alt"
+                        /></a>
+                    </div>
+
+                    <div class="content">
+                        <ul>
+                            <li>{{ post.date }}</li>
+                            <li>
+                                <a [routerLink]="post.link">{{
+                                    post.author
+                                }}</a>
+                            </li>
+                        </ul>
+                        <a [routerLink]="post.link"
+                            ><h3>{{ post.title }}</h3></a
+                        >
+                        <p>{{ post.description }}</p>
+                        <a [routerLink]="post.link" class="line-bnt">{{
+                            post.readmore
+                        }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-btn text-center">
+            <p>
+                {{ blogData.moreBlogsText }}
+                <a [routerLink]="blogData.moreBlogsLink">{{
+                    blogData.moreBlogsLinkText
+                }}</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="home-contact-area bg-color ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <span>{{ contactData.title }}</span>
+            <h2>{{ contactData.header }}</h2>
+            <p>{{ contactData.description }}</p>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact-img">
+                    <img
+                        [src]="contactData.image.contactImage"
+                        [alt]="contactData.image.alt"
+                    />
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="content">
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        class="form-control"
+                                        required
+                                        placeholder="{{
+                                            contactData.formFields.name
+                                        }}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        class="form-control"
+                                        required
+                                        placeholder="{{
+                                            contactData.formFields.email
+                                        }}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        name="phone_number"
+                                        id="phone_number"
+                                        required
+                                        class="form-control"
+                                        placeholder="{{
+                                            contactData.formFields.phone
+                                        }}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        name="msg_subject"
+                                        id="msg_subject"
+                                        class="form-control"
+                                        required
+                                        placeholder="{{
+                                            contactData.formFields.subject
+                                        }}"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <textarea
+                                        name="message"
+                                        class="form-control"
+                                        id="message"
+                                        cols="30"
+                                        rows="5"
+                                        required
+                                        placeholder="{{
+                                            contactData.formFields.message
+                                        }}"
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <button
+                                    type="submit"
+                                    class="default-btn page-btn box-btn"
+                                >
+                                    {{ contactData.submitButtonText }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

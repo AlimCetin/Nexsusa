@@ -1,0 +1,204 @@
+<header class="header-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-2 col-sm-0">
+                <div class="logo">
+                    <a routerLink="/"
+                        ><img src="assets/images/logo.png" alt="logo"
+                    /></a>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-sm-6 text-end pr-0">
+                <div class="header-content-right">
+                    <ul class="header-contact">
+                        <li>
+                            <a href="tel:+1123456789"
+                                ><i class="bx bxs-phone-call"></i> +90 123 456
+                                789</a
+                            >
+                        </li>
+                        <li>
+                            <a href="mailto:hello@aiva.com"
+                                ><i class="bx bxs-envelope"></i>
+                                hello&#64;aiva.com</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-6 text-end pl-0">
+                <div class="header-content-right">
+                    <ul class="header-social">
+                        <li>
+                            <a href="#" target="_blank"
+                                ><i class="bx bxl-facebook"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank"
+                                ><i class="bx bxl-twitter"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxs-envelope"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxl-youtube"></i
+                            ></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="{{ navbarClass }}">
+    <div class="main-nav" ngStickyNav stickyClass="sticky-box-shadow">
+        <div class="container">
+            <nav
+                class="navbar navbar-expand-lg navbar-light"
+                [class.active]="classApplied"
+            >
+                <a class="navbar-brand d-none" routerLink="/">
+                    <img src="assets/images/logo2.png" alt="logo" />
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    (click)="toggleClass()"
+                >
+                    <span class="burger-menu">
+                        <span class="top-bar"></span>
+                        <span class="middle-bar"></span>
+                        <span class="bottom-bar"></span>
+                    </span>
+                </button>
+                <div
+                    class="collapse navbar-collapse mean-menu"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav text-left">
+                        <li *ngFor="let item of menuItems" class="nav-item">
+                            <!-- Çocuk öğesi olmayan birinci seviye öğe bağlantısı -->
+                            <a
+                                *ngIf="!item.children"
+                                [routerLink]="item.link"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
+                                {{ item.label }}
+                            </a>
+
+                            <!-- Çocuk öğeleri olan birinci seviye öğe -->
+                            <a
+                                *ngIf="item.children"
+                                href="javascript:void(0)"
+                                class="nav-link dropdown-toggle"
+                            >
+                                {{ item.label }}
+                            </a>
+
+                            <!-- Çok seviyeli alt menüleri oluşturmak için yeniden kullanılan şablon -->
+                            <ul *ngIf="item.children" class="dropdown-menu">
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        recursiveMenu;
+                                        context: { $implicit: item.children }
+                                    "
+                                ></ng-container>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Alt kategorileri yönetmek için yeniden kullanılan şablon -->
+                    <ng-template #recursiveMenu let-subItems>
+                        <li *ngFor="let child of subItems" class="nav-item">
+                            <!-- Daha fazla alt çocuğu olmayan bağlantı -->
+                            <a
+                                *ngIf="!child.children"
+                                [routerLink]="child.link"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
+                                {{ child.label }}
+                            </a>
+
+                            <!-- Daha fazla alt çocuğu olan bağlantı -->
+                            <a
+                                *ngIf="child.children"
+                                href="javascript:void(0)"
+                                class="nav-link dropdown-toggle"
+                            >
+                                {{ child.label }}
+                            </a>
+
+                            <!-- İç içe geçmiş alt menü -->
+                            <ul *ngIf="child.children" class="dropdown-menu">
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        recursiveMenu;
+                                        context: { $implicit: child.children }
+                                    "
+                                ></ng-container>
+                            </ul>
+                        </li>
+                    </ng-template>
+                </div>
+
+                <div class="nav-right">
+                    <form>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control search"
+                                placeholder="{{ search }}"
+                            />
+                        </div>
+
+                        <button type="submit">
+                            <i class="bx bx-search"></i>
+                        </button>
+                    </form>
+                </div>
+
+
+
+                <div
+                class="collapse navbar-collapse mean-menu"
+                id="navbarLang"
+            >
+                <ul class="navbar-nav text-left">
+                    <li class="nav-item">
+                        <a
+                            href="javascript:void(0)"
+                            class="nav-link dropdown-toggle"
+                        >
+                            {{ languagesDefault.name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li *ngFor="let item of languages" class="nav-item">
+                            <a class="dropdown-item" href="#" (click)="selectLanguage(item)">
+                              {{ item.name }}
+                            </a>
+                          </li>
+
+                            
+    
+                      
+                            </ul>
+                        </li>
+                        </ul>
+                      </div>
+
+            </nav>
+        </div>
+    </div>
+</div>

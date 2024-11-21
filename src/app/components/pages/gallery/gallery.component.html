@@ -1,0 +1,16 @@
+<div class="project-wraps">
+    <div class="row">
+      <div
+        class="col-lg-4 col-md-6"
+        *ngFor="let project of gallery"
+        [ngClass]="{ 'col-lg-8': project.large }"
+      >
+        <div class="single-project">
+          <div class="project-image" [ngClass]="project.imageClass">
+            <div class="price-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
