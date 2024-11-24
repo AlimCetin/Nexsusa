@@ -13,14 +13,15 @@
                 <div class="header-content-right">
                     <ul class="header-contact">
                         <li>
-                            <a [href]="homePageInfo.phoneNumber"
-                                ><i class="bx bxs-phone-call"></i> {{homePageInfo.phoneNumber}}</a
+                            <a [href]="homePageInfo?.phoneNumber"
+                                ><i class="bx bxs-phone-call"></i>
+                                {{ homePageInfo?.phoneNumber }}</a
                             >
                         </li>
                         <li>
-                            <a [href]="homePageInfo.email"
+                            <a [href]="homePageInfo?.email"
                                 ><i class="bx bxs-envelope"></i>
-                                {{homePageInfo.email}}</a
+                                {{ homePageInfo?.email }}</a
                             >
                         </li>
                     </ul>
@@ -29,20 +30,20 @@
 
             <div class="col-lg-2 col-sm-6 text-end pl-0">
                 <div class="header-content-right">
-                  <ul class="header-social">
-                    <li *ngFor="let social of homePageInfo.socialLinks">
-                      <a [href]="social.url" target="_blank">
-                        <i [class]="social.name"></i>
-                      </a>
-                    </li>
-                  </ul>
+                    <ul class="header-social">
+                        <li *ngFor="let social of homePageInfo?.socialLinks">
+                            <a [href]="social.url" target="_blank">
+                                <i [class]="social.name"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 </header>
 
-<div class="{{ navbarClass }}">
+<div class="navbar-area">
     <div class="main-nav" ngStickyNav stickyClass="sticky-box-shadow">
         <div class="container">
             <nav
@@ -137,33 +138,32 @@
                     </ng-template>
                 </div>
 
-                <div
-                class="collapse navbar-collapse mean-menu"
-                id="navbarLang"
-            >
-                <ul class="navbar-nav text-left">
-                    <li class="nav-item">
-                        <a
-                            href="javascript:void(0)"
-                            class="nav-link dropdown-toggle"
-                        >
-                            {{ languagesDefault.name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li *ngFor="let item of languages" class="nav-item">
-                            <a class="dropdown-item" href="#" (click)="selectLanguage(item)">
-                              {{ item.name }}
+                <div class="collapse navbar-collapse mean-menu" id="navbarLang">
+                    <ul class="navbar-nav text-left">
+                        <li class="nav-item">
+                            <a
+                                href="javascript:void(0)"
+                                class="nav-link dropdown-toggle"
+                            >
+                                {{ languagesDefault.name }}
                             </a>
-                          </li>
-
-                            
-    
-                      
+                            <ul class="dropdown-menu">
+                                <li
+                                    *ngFor="let item of languages"
+                                    class="nav-item"
+                                >
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                        (click)="selectLanguage(item)"
+                                    >
+                                        {{ item.name }}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        </ul>
-                      </div>
-
+                    </ul>
+                </div>
             </nav>
         </div>
     </div>

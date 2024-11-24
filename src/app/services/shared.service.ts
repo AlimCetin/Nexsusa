@@ -1,46 +1,53 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, firstValueFrom } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: "root",
 })
 export class SharedService {
-  // Veri paylaşımı için BehaviorSubject
-  private language = new BehaviorSubject<any>(null);
-  lang$ = this.language.asObservable();
+    _http = inject(HttpClient);
 
-  setLang(langNew: any): void {
-    this.language.next(langNew);
-  }
+    // Veri paylaşımı için BehaviorSubject
+    private language = new BehaviorSubject<any>(null);
+    lang$ = this.language.asObservable();
 
-  getLang(): any {
-    return this.language.value;
-  }
-  
-/* ---------------------------------------- */
-private navbar = new BehaviorSubject<any>(null);
-  navbarData$ = this.navbar.asObservable();
+    setLang(langNew: any): void {
+        this.language.next(langNew);
+    }
 
-  setNavbar(navbarNew: any): void {
-    this.navbar.next(navbarNew);
-  }
+    getLang(): any {
+        return this.language.value;
+    }
+    async getLanguages() {
+        return firstValueFrom(this._http.get(environment.baseUrl+"Language/Get")) ;
+    }
+    /* ---------------------------------------- */
+    private navbar = new BehaviorSubject<any>(null);
+    navbarData$ = this.navbar.asObservable();
 
-  getNavbar(): any {
-    return this.navbar.value;
-  }
-  
-/* ---------------------------------------- */
-private footer = new BehaviorSubject<any>(null);
-  footerData$ = this.footer.asObservable();
+    setNavbar(navbarNew: any): void {
+        this.navbar.next(navbarNew);
+    }
 
-  setFooter(footerNew: any): void {
-    this.footer.next(footerNew);
-  }
+    getNavbar(): any {
+        return this.navbar.value;
+    }
 
-  getFooter(): any {
-    return this.footer.value;
-  }
+    /* ---------------------------------------- */
+    private footer = new BehaviorSubject<any>(null);
+    footerData$ = this.footer.asObservable();
 
+    setFooter(footerNew: any): void {
+        this.footer.next(footerNew);
+    }
 
-
+    getFooter(): any {
+        return this.footer.value;
+    }
 }
+// function firstValueFrom(arg0: Observable<Object>) {
+//     throw new Error("Function not implemented.");
+// }
+

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationCancel, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { SharedService } from './services/shared.service';
 declare let $: any;
 
 @Component({
@@ -20,11 +21,17 @@ export class AppComponent {
     routerSubscription: any;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private sharedService: SharedService
     ) {}
 
     ngOnInit(){
         this.recallJsFuntions();
+        this.sharedService.getLanguages().then((response :any) => {
+            const languageId = response.data.find((x: { isDefault: any; }) => x.isDefault).id;
+            localStorage.setItem("languageId", languageId);
+            console.log("LanguageId:", languageId);
+        });
     }
 
     recallJsFuntions() {

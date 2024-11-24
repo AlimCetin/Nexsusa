@@ -7,8 +7,7 @@ import {
 } from "@angular/common";
 import { LanguageService } from "../../../services/language/language.service";
 import { NavbarService } from "../../../services/navbar/navbar.service";
-import { SharedService } from '../../../services/shared.service';
-
+import { SharedService } from "../../../services/shared.service";
 
 @Component({
     selector: "app-navbar",
@@ -23,45 +22,62 @@ import { SharedService } from '../../../services/shared.service';
     ],
 })
 export class NavbarComponent implements OnInit {
-  
-    languages: any[] = [];
-    languagesDefault: any = {};
+    languages: any[] = [
+        {
+            id: 1,
+            code: "TR",
+            name: "Türkçe",
+            isDefault: true,
+        },
+        {
+            id: 1,
+            code: "EN",
+            name: "English",
+            isDefault: true,
+        },
+    ];
+    languagesDefault: any = {
+        id: 1,
+        code: "TR",
+        name: "Türkçe",
+        isDefault: true,
+    };
     language: any;
     navbarItems: any[] = [];
-    subItems=[];
-    homePageInfo:any;
+    subItems = [];
+    homePageInfo: any;
     location: any;
     navbarClass: any;
-    
+
     classApplied = false;
 
     menuItems: { label: string; link: string; children: any[] }[] = [
         {
-          label: 'Home',
-          link:'/',
-          children:[]
+            label: "Home",
+            link: "/",
+            children: [],
         },
         {
-          label: 'About',
-          link: '/about',
-          children:[]
+            label: "About",
+            link: "/about",
+            children: [],
         },
         {
-          label: 'Solutions',
-          link: '#',
-          children:[]
+            label: "Solutions",
+            link: "#",
+            children: [],
         },
         {
-          label: 'Case Studies',
-          link: '#',
-          children:[]
+            label: "Case Studies",
+            link: "#",
+            children: [],
         },
         {
-          label: 'Contact',
-          link: '/contact',
-          children:[]
-        }
-      ];
+            label: "Contact",
+            link: "/contact",
+            children: [],
+        },
+    ];
 
     toggleClass() {
         this.classApplied = !this.classApplied;
@@ -72,82 +88,57 @@ export class NavbarComponent implements OnInit {
         location: Location,
         private languageService: LanguageService,
         private navbarService: NavbarService,
-        private sharedService: SharedService,
+        private sharedService: SharedService
     ) {
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                this.location = this.router.url;
-                if (this.location == "/home-three") {
-                    this.navbarClass = "navbar-area three";
-                } else {
-                    this.navbarClass = "navbar-area";
+        // this.router.events.subscribe((event) => {
+        //     if (event instanceof NavigationEnd) {
+        //         this.location = this.router.url;
+        //         if (this.location == "/home-three") {
+        //             this.navbarClass = "navbar-area three";
+        //         } else {
+        //             this.navbarClass = "navbar-area";
+        //         }
+        //     }
+        // });
+    }
+
+    ngOnInit(): void {
+        this.init();
+
+        this.sharedService.navbarData$.subscribe((navData) => {
+            this.homePageInfo = navData;
+        });
+    }
+    async init() {
+        // this.getLanguageService();
+        this.setLanguage();
+        await this.getLanguages();
+    }
+    async getLanguages() {
+        return await this.sharedService.getLanguages().then((response: any) => {
+            console.log("Languages:", response);
+            if (response.isSuccess) {
+                this.languages = response.data;
+                for (const element of response.data) {
+                    if (element.isDefault == true) {
+                        this.languagesDefault = element;
+                        this.language = element;
+                        this.sharedService.setLang(element);
+                    }
+                    console.log("Default Language:", this.languagesDefault);
                 }
             }
         });
     }
-
-    ngOnInit(): void {
-        this.getLanguageService();
-        this.getNavbarItems();
-        this.sharedService.lang$.subscribe((langData)=>{this.language=langData;})
-        this.sharedService.navbarData$.subscribe((navData)=>{this.homePageInfo=navData;})
-    }
-
-    getLanguageService(): void {
-        this.languageService.getLanguages().subscribe({
-            next: (response) => {
-                if (response.statusCode == 200) {
-                    this.languages = response.data;
-                    for (const element of response.data) {
-                        if (element.isDefault == true) {
-                            this.languagesDefault = element;
-                           this.sharedService.setLang(element);
-                        }
-                    }
-                }
-
-                console.log("Languages:", this.languages);
-            },
-            error: (error) => {
-                console.error("Error:", error);
-            },
-        });
-    }
-
-    getNavbarItems(): void {
-        this.navbarService.getNavbarItems(this.language.id).subscribe({
-            next: (response) => {
-                console.log("navbar " + response.data);
-                if (response.statusCode === 200) {
-                    response.data.forEach((item) => {
-                        this.menuItems.forEach((element) => {            
-                            // Label kontrolü
-                            if (element.label === item.label) {
-                                // `item.navBarItemSubItems` kontrolü
-                                if (item.navBarItemSubItems && item.navBarItemSubItems.length > 0) {
-                                     this.subItems = item.navBarItemSubItems.map((subItem) => ({
-                                        label: subItem.name,
-                                        link: subItem.url,
-                                        id: item.id,
-                                        icon: item.icon,
-                                    }));
-                                    // Sub-items'ları ekleme
-                                    element.children.push(...this.subItems);
-                                }
-                            }
-                        });
-                    });
-                }
-            },
-            error: (err) => {
-                console.error("Navbar öğeleri alınamadı:", err);
-            },
+    setLanguage() {
+        this.sharedService.lang$.subscribe((langData) => {
+            console.log("LangData:", langData);
+            this.language = langData;
         });
     }
 
     selectLanguage(language: any): void {
         this.languagesDefault = language; // Seçilen dili set et
         this.sharedService.setLang(language);
-        this.getNavbarItems();
     }
 }

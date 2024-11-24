@@ -4,9 +4,9 @@
             <div class="col-lg-4 col-md-6">
                 <div class="content">
                     <div class="logo">
-                        <a [routerLink]='footer.imageUrl'><img [src]="logoUrl"  /></a>
+                        <a [routerLink]='footer?.imageUrl'><img [src]="logoUrl"  /></a>
                       </div>
-                      <p>{{ footer.description }}</p>
+                      <p>{{ footer?.description }}</p>
                 </div>
             </div>
 
@@ -14,19 +14,19 @@
                 <div class="content ml-15">
                   <h3>{{ serviceTitle }}</h3>
                   <ul class="footer-list">
-                    <li *ngFor="let service of footer.services">
-                      <a [routerLink]="service.url">{{ service.title }}</a>
+                    <li *ngFor="let service of footer?.services">
+                      <a [routerLink]="service.url">{{ service?.title }}</a>
                     </li>
                   </ul>
                 </div>
               </div>
-              
+
               <div class="col-lg-2 col-md-6">
                 <div class="content">
                   <h3>{{ quickLinksTitle }}</h3>
                   <ul class="footer-list">
-                    <li *ngFor="let link of footer.quickLinks">
-                      <a [routerLink]="link.url">{{ link.title }}</a>
+                    <li *ngFor="let link of footer?.quickLinks">
+                      <a [routerLink]="link.url">{{ link?.title }}</a>
                     </li>
                   </ul>
                 </div>
@@ -37,9 +37,9 @@
                     <h3 class="ml-40">{{contact}}</h3>
 
                     <ul class="footer-list foot-social">
-                        <li><a href="tel:+90975456789"><i class="bx bx-phone"></i> {{footer.phoneNumber}}</a></li>
-                        <li><a href="mailto:support@aiva.com"><i class="bx bxs-envelope"></i> {{footer.email}}</a></li>
-                        <li><i class="bx bxs-map"></i>{{footer.address}}</li>
+                        <li><a href="tel:+90975456789"><i class="bx bx-phone"></i> {{footer?.phoneNumber}}</a></li>
+                        <li><a href="mailto:support@aiva.com"><i class="bx bxs-envelope"></i> {{footer?.email}}</a></li>
+                        <li><i class="bx bxs-map"></i>{{footer?.address}}</li>
                     </ul>
                 </div>
             </div>
@@ -51,7 +51,7 @@
           <div class="row">
             <div class="col-lg-6">
             </div>
-      
+
             <div class="col-lg-6">
               <p>
                 {{ footerText }}

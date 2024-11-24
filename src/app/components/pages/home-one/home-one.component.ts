@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { OwlOptions } from "ngx-owl-carousel-o";
-import { title } from "process";
-import { HomeService } from '../../../services/home/home.service';
-import { SharedService } from '../../../services/shared.service';
+import { HomeService } from "../../../services/home/home.service";
+import { SharedService } from "../../../services/shared.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-home-one",
@@ -14,70 +14,66 @@ export class HomeOneComponent implements OnInit {
     languagesDefault: any = {};
     languageId: number = 1;
     homePageData: any;
-   
 
-    constructor(private homeService: HomeService,
+    constructor(
+        private homeService: HomeService,
         private sharedService: SharedService
     ) {}
     // Dynamic data for the banner section
-    bannerData: any={};
+    bannerData: any = {};
 
-    ServicesData :any={};
-    companyData : any ={};
+    ServicesData: any = {};
+    companyData: any = {};
 
-    chooseData :any={};
+    chooseData: any = {};
 
-    processData :any={};
+    processData: any = {};
 
-    caseData :any={};
+    caseData: any = {};
 
-    featureData :any={};
+    featureData: any = {};
 
-    teamData:any={};
+    teamData: any = {};
 
-    testimonialData :any={};
+    testimonialData: any = {};
 
-    blogData :any={};
+    blogData: any = {};
 
-    contactData:any={};
+    contactData: any = {};
 
+    imgagesUrl = environment.imagesUrl;
 
     ngOnInit(): void {
-      this.sharedService.lang$.subscribe((lang)=>{this.languageId=lang.id;
-        this.getHomePageData();
-      })
+        this.sharedService.lang$.subscribe((lang) => {
+            this.languageId = lang?.id;
+            this.getHomePageData();
+        });
         this.getHomePageData();
     }
 
-
-
     getHomePageData(): void {
-        this.homeService.getHomePage(this.languageId).subscribe({
-          next: (response) => {
-            console.log('HomePage Data:', response); // Veriyi kontrol etmek için
-            if (response.statusCode==200) {
-        
-   this.bannerData=response.data.slider;
-   this.ServicesData=response.data.services;
-   this.companyData=response.data.ourCompany;
-   this.chooseData=response.data.chooseUs;
-   this.processData=response.data.workingProcess;
-   this.caseData=response.data.workShowCase;
-   this.featureData=response.data.whoWeAre;
-   this.teamData=response.data.ourEmployees;
-   this.testimonialData=response.data.clientSays;
-   this.blogData=response.data.regularBlogs;
-
-
-            }
-            
-          },
-          error: (err) => {
-            console.error('HomePage verisi alınamadı:', err);
-          },
+        const languageId = Number(localStorage.getItem("languageId"));
+        this.homeService.getHomePage(languageId).subscribe({
+            next: (response) => {
+                console.log("HomePage Data:", response); // Veriyi kontrol etmek için
+                if (response.statusCode == 200) {
+                    this.bannerData = response.data.slider;
+                    this.ServicesData = response.data.services;
+                    this.companyData = response.data.ourCompany;
+                    this.chooseData = response.data.chooseUs;
+                    this.processData = response.data.workingProcess;
+                    this.caseData = response.data.workShowCase;
+                    this.featureData = response.data.whoWeAre;
+                    this.teamData = response.data.ourEmployees;
+                    this.testimonialData = response.data.clientSays;
+                    this.blogData = response.data.regularBlogs;
+                }
+            },
+            error: (err) => {
+                console.error("HomePage verisi alınamadı:", err);
+            },
         });
-      }
-
+    }
 
     teamSlides: OwlOptions = {
         loop: true,
