@@ -9,6 +9,7 @@ import { LanguageService } from "../../../services/language/language.service";
 import { NavbarService } from "../../../services/navbar/navbar.service";
 import { SharedService } from '../../../services/shared.service';
 
+
 @Component({
     selector: "app-navbar",
     templateUrl: "./navbar.component.html",
@@ -22,24 +23,45 @@ import { SharedService } from '../../../services/shared.service';
     ],
 })
 export class NavbarComponent implements OnInit {
-    menuItems: any[] = [];
+  
     languages: any[] = [];
     languagesDefault: any = {};
-    languageId: number = 1;
+    language: any;
     navbarItems: any[] = [];
-
-
+    subItems=[];
+    homePageInfo:any;
     location: any;
     navbarClass: any;
-
+    
     classApplied = false;
 
-    search = "Search...";
-
-    button = {
-        link: "/solutions",
-        label: "Get Started",
-    };
+    menuItems: { label: string; link: string; children: any[] }[] = [
+        {
+          label: 'Home',
+          link:'/',
+          children:[]
+        },
+        {
+          label: 'About',
+          link: '/about',
+          children:[]
+        },
+        {
+          label: 'Solutions',
+          link: '#',
+          children:[]
+        },
+        {
+          label: 'Case Studies',
+          link: '#',
+          children:[]
+        },
+        {
+          label: 'Contact',
+          link: '/contact',
+          children:[]
+        }
+      ];
 
     toggleClass() {
         this.classApplied = !this.classApplied;
@@ -50,7 +72,7 @@ export class NavbarComponent implements OnInit {
         location: Location,
         private languageService: LanguageService,
         private navbarService: NavbarService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
     ) {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -67,6 +89,8 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.getLanguageService();
         this.getNavbarItems();
+        this.sharedService.lang$.subscribe((langData)=>{this.language=langData;})
+        this.sharedService.navbarData$.subscribe((navData)=>{this.homePageInfo=navData;})
     }
 
     getLanguageService(): void {
@@ -77,7 +101,7 @@ export class NavbarComponent implements OnInit {
                     for (const element of response.data) {
                         if (element.isDefault == true) {
                             this.languagesDefault = element;
-                            this.sharedService.setData(element)
+                           this.sharedService.setLang(element);
                         }
                     }
                 }
@@ -91,26 +115,28 @@ export class NavbarComponent implements OnInit {
     }
 
     getNavbarItems(): void {
-        this.navbarService.getNavbarItems(this.languageId).subscribe({
+        this.navbarService.getNavbarItems(this.language.id).subscribe({
             next: (response) => {
                 console.log("navbar " + response.data);
-                if (response.statusCode == 200) {
-                    this.menuItems = response.data.map((item) => ({
-                        label: item.name,
-                        link: item.url,
-                        id: item.id,
-                        icon: item.icon,
-                        children:
-                            item.navBarItemSubItems &&
-                            item.navBarItemSubItems.length > 0
-                                ? item.navBarItemSubItems.map((subItem) => ({
-                                      label: subItem.name,
-                                      link: subItem.url,
-                                      id: item.id,
-                                      icon: item.icon,
-                                  }))
-                                : [],
-                    })); // Gelen veriyi navbarItems dizisine ata
+                if (response.statusCode === 200) {
+                    response.data.forEach((item) => {
+                        this.menuItems.forEach((element) => {            
+                            // Label kontrolü
+                            if (element.label === item.label) {
+                                // `item.navBarItemSubItems` kontrolü
+                                if (item.navBarItemSubItems && item.navBarItemSubItems.length > 0) {
+                                     this.subItems = item.navBarItemSubItems.map((subItem) => ({
+                                        label: subItem.name,
+                                        link: subItem.url,
+                                        id: item.id,
+                                        icon: item.icon,
+                                    }));
+                                    // Sub-items'ları ekleme
+                                    element.children.push(...this.subItems);
+                                }
+                            }
+                        });
+                    });
                 }
             },
             error: (err) => {
@@ -121,8 +147,7 @@ export class NavbarComponent implements OnInit {
 
     selectLanguage(language: any): void {
         this.languagesDefault = language; // Seçilen dili set et
-        this.languageId = language.id;
+        this.sharedService.setLang(language);
         this.getNavbarItems();
-        this.sharedService.setData(language.id)
     }
 }

@@ -3,7 +3,6 @@ import { OwlOptions } from "ngx-owl-carousel-o";
 import { title } from "process";
 import { HomeService } from '../../../services/home/home.service';
 import { SharedService } from '../../../services/shared.service';
-import { LanguageService } from "../../../services/language/language.service";
 
 @Component({
     selector: "app-home-one",
@@ -18,7 +17,6 @@ export class HomeOneComponent implements OnInit {
    
 
     constructor(private homeService: HomeService,
-        private languageService: LanguageService,
         private sharedService: SharedService
     ) {}
     // Dynamic data for the banner section
@@ -45,31 +43,12 @@ export class HomeOneComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.getLanguageService();
-        this.getCurrentData();
+      this.sharedService.lang$.subscribe((lang)=>{this.languageId=lang.id;
+        this.getHomePageData();
+      })
         this.getHomePageData();
     }
 
-    getLanguageService(): void {
-        this.languageService.getLanguages().subscribe({
-            next: (response) => {
-                if (response.statusCode == 200) {
-                    this.languages = response.data;
-                    for (const element of response.data) {
-                        if (element.isDefault == true) {
-                            this.languagesDefault = element;
-                            this.sharedService.setData(element)
-                        }
-                    }
-                }
-
-                console.log("Languages:", this.languages);
-            },
-            error: (error) => {
-                console.error("Error:", error);
-            },
-        });
-    }
 
 
     getHomePageData(): void {
@@ -99,17 +78,6 @@ export class HomeOneComponent implements OnInit {
         });
       }
 
-      getCurrentData(): void {
-        this.sharedService.currentData.subscribe({
-          next: (response) => {
-            console.log('Navbar Verisi:', response);
-            this.languageId = response.id; // Veriyi değişkene aktar
-          },
-          error: (err) => {
-            console.error('Veri alınamadı:', err);
-          },
-        });
-      }
 
     teamSlides: OwlOptions = {
         loop: true,

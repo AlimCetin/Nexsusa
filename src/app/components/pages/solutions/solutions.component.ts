@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/services/shared.service';
+import { SolutionsService } from 'src/app/services/solutions/solutions.service';
 
 @Component({
   selector: 'app-solutions',
@@ -6,53 +8,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./solutions.component.scss']
 })
 export class SolutionsComponent implements OnInit {
+  languageId: any;
+  solutionsData:any;
 
-  constructor() { }
-  services = [
-    {
-      title: 'Visual Design',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s1.png',
-      link: '/solutions-details',
-    },
-    {
-      title: 'Development',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s2.png',
-      link: '/solutions-details',
-    },
-    {
-      title: 'QA Testing',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s3.png',
-      link: '/solutions-details',
-    },
-    {
-      title: 'IT Management',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s4.png',
-      link: '/solutions-details',
-    },
-    {
-      title: 'Cyber Security',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s5.png',
-      link: '/solutions-details',
-    },
-    {
-      title: 'Wireless Connectivity',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel sit maxime assumenda.',
-      image: 'assets/images/service/s6.png',
-      link: '/solutions-details',
-    },
-  ];
-  ngOnInit(): void {
+ 
+  constructor(private solutionsService: SolutionsService,
+    private sharedService: SharedService
+) {}
+
+ngOnInit(): void {
+  this.sharedService.lang$.subscribe((lang)=>{this.languageId=lang.id;
+    this.getSolutionsPageData();
+  })
+    this.getSolutionsPageData();
+}
+
+
+
+getSolutionsPageData(): void {
+    this.solutionsService.getSolutions(this.languageId).subscribe({
+      next: (response) => {
+        console.log('HomePage Data:', response); // Veriyi kontrol etmek için
+        if (response.statusCode==200) {
+   this.solutionsData=response.data
+
+        }
+        
+      },
+      error: (err) => {
+        console.error('HomePage verisi alınamadı:', err);
+      },
+    });
   }
 
 }

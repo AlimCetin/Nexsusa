@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { importProvidersFrom, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
 
-  private langUrl = 'http://localhost:5026/Language/Get';
+  private langUrl = environment.baseUrl+'Language/Get';
 
   constructor(private http: HttpClient) {}
 

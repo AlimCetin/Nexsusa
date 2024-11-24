@@ -1,26 +1,25 @@
-<ngx-tabset>
-    <ngx-tab *ngFor="let category of caseCategories" [tabTitle]="category">
-      <div class="row case-list">
-        <div 
-          class="col-lg-4 col-sm-6" 
-          *ngFor="let case of cases" 
-          [hidden]="category !== 'All' && case.category !== category">
-          <div class="single-case">
-            <div class="case-img">
-              <a [routerLink]="case.link">
-                <img [src]="case.image" [alt]="case.title" />
-              </a>
-            </div>
-            <div class="content">
-              <a [routerLink]="case.link">
-                <h3>{{ case.title }}</h3>
-              </a>
-              <p>{{ case.description }}</p>
-              <a [routerLink]="case.link" class="line-bnt">View Project Details</a>
-            </div>
+<section class="home-case pt-100 pb-70">
+  <div class="container">
+    <div class="section-title">
+
+      <h2>{{caseData.title}}</h2>
+      <p>{{caseData.description}}</p>
+    </div>
+    <div class="row case-list">
+      <div class="col-lg-4 col-sm-6" *ngFor="let caseStudy of caseData.questions">
+        <div class="single-case">
+          <div class="case-img">
+            <a [routerLink]="caseStudy.link"><img [src]="caseStudy.image"  /></a>
+          </div>
+          <div class="content">
+            <a [routerLink]="caseStudy.link">
+              <h3>{{ caseStudy.title }}</h3>
+            </a>
+            <p>{{ caseStudy.description }}</p>
+            <a [routerLink]="caseStudy.link" class="line-bnt">View Project Details</a>
           </div>
         </div>
       </div>
-    </ngx-tab>
-  </ngx-tabset>
-  
+    </div>
+  </div>
+</section>

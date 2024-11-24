@@ -1,4 +1,6 @@
+import { CaseService } from './../../../services/case/case.service';
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-case-studies',
@@ -6,30 +8,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./case-studies.component.scss']
 })
 export class CaseStudiesComponent implements OnInit {
+  languageId: any;
+  caseData: any;
 
-  constructor() { }
-  caseCategories = ['All', 'Design', 'Development', 'Cyber Security'];
+  constructor(private caseService: CaseService,
+    private sharedService: SharedService
+) {}
 
-  cases = [
-    {
-      id: 1,
-      category: 'Development',
-      title: 'Joe’s Company Software Development Case',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'assets/images/case/c1.jpg',
-      link: '/case-studies-details'
-    },
-    {
-      id: 2,
-      category: 'Cyber Security',
-      title: 'Temperature App UX Studies & Development Case',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'assets/images/case/c6.jpg',
-      link: '/case-studies-details'
-    },
-    // Daha fazla örnek ekleyebilirsiniz
-  ];
-  ngOnInit(): void {
+
+
+ngOnInit(): void {
+  this.sharedService.lang$.subscribe((lang)=>{this.languageId=lang.id;
+    this.getCaseData();
+  })
+    this.getCaseData();
+}
+
+
+
+getCaseData(): void {
+    this.caseService.getCase(this.languageId).subscribe({
+      next: (response) => {
+        console.log('case Data:', response); // Veriyi kontrol etmek için
+        if (response.statusCode==200) {
+          this.caseData=response.data
+        }
+        
+      },
+      error: (err) => {
+        console.error('HomePage verisi alınamadı:', err);
+      },
+    });
   }
+
 
 }
