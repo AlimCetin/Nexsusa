@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { AboutService } from 'src/app/services/about/about.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
     selector: 'app-about',
@@ -8,71 +10,68 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class AboutComponent implements OnInit {
 
-    constructor() { }
-	testimonials = [
-		{
-		  image: 'assets/images/client/1.jpg',
-		  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-		  name: 'Steven Jony',
-		  position: 'CEO of Company'
+	aboutData: any;
+
+  
+	constructor(private aboutService: AboutService,
+  ) {}
+  
+  
+  
+  ngOnInit(): void {
+	  this.getAboutData();
+  }
+  
+  
+  
+  getAboutData(): void {
+	const languageId = Number(localStorage.getItem("languageId"));
+	  this.aboutService.getAbout(languageId).subscribe({
+		next: (response) => {
+		  console.log('about Data:', response); // Veriyi kontrol etmek için
+		  if (response.statusCode==200) {
+			this.aboutData=response.data
+		  }
+		  
 		},
-		{
-		  image: 'assets/images/client/2.jpg',
-		  text: 'Quis suspendisse typesetting ipsum dolor sit amet.',
-		  name: 'Omit Jacson',
-		  position: 'Company Founder'
-		}
-	  ];
-	
-	  features: string[] = [
-		'Freelancing Traning Course',
-		'Technological Consultation',
-		'Monthly Paid Workspace',
-		'IT Learning Institute',
-		'Digital Marketing'
-	  ];
-	
-	  companyDetails = {
-		title: 'Innovative It Helping Service Allover the World',
-		description: [
-		  'It is a long established fact that a reader will be distracted...',
-		  'The point of using Lorem Ipsum is that it has a more...'
-		]
-	  };
-    ngOnInit(): void {
-    }
+		error: (err) => {
+		  console.error('case verisi alınamadı:', err);
+		},
+	  });
+  }
     
-    clientWrap: OwlOptions = {
-		loop:true,
-		margin:30,
-		nav:false,
-		mouseDrag: true,
-		items:1,
-		dots: false,
-		autoHeight: true,
-		autoplay: true,
-		smartSpeed: 800,
-		autoplayHoverPause: true,
-		center: false,
-		responsive:{
-			0:{
-				items:1,
-				margin: 10,
-			},
-			576:{
-				items:1,
-			},
-			768:{
-				items:2,
-				margin: 20,
-			},
-			992:{
-				items:2,
-			},
-			1200:{
-				items:2,
-			}
+  clientWrap: OwlOptions = {
+	loop:true,
+	margin:30,
+	nav:false,
+	mouseDrag: true,
+	items:1,
+	dots: false,
+	autoHeight: true,
+	autoplay: true,
+	smartSpeed: 800,
+	autoplayHoverPause: true,
+	center: false,
+	responsive:{
+		0:{
+			items:1,
+			margin: 10,
+		},
+		576:{
+			items:1,
+		},
+		768:{
+			items:2,
+			margin: 20,
+		},
+		992:{
+			items:2,
+		},
+		1200:{
+			items:2,
 		}
-    }
+	}
+}
+
 
 }

@@ -8,7 +8,6 @@ import { SolutionsService } from 'src/app/services/solutions/solutions.service';
   styleUrls: ['./solutions.component.scss']
 })
 export class SolutionsComponent implements OnInit {
-  languageId: any;
   solutionsData:any;
 
  
@@ -17,18 +16,16 @@ export class SolutionsComponent implements OnInit {
 ) {}
 
 ngOnInit(): void {
-  this.sharedService.lang$.subscribe((lang)=>{this.languageId=lang.id;
-    this.getSolutionsPageData();
-  })
     this.getSolutionsPageData();
 }
 
 
 
 getSolutionsPageData(): void {
-    this.solutionsService.getSolutions(this.languageId).subscribe({
+  const languageId = Number(localStorage.getItem("languageId"));
+    this.solutionsService.getSolutions(languageId).subscribe({
       next: (response) => {
-        console.log('HomePage Data:', response); // Veriyi kontrol etmek için
+        console.log('solution Data:', response); // Veriyi kontrol etmek için
         if (response.statusCode==200) {
    this.solutionsData=response.data
 
@@ -36,7 +33,7 @@ getSolutionsPageData(): void {
         
       },
       error: (err) => {
-        console.error('HomePage verisi alınamadı:', err);
+        console.error('solution verisi alınamadı:', err);
       },
     });
   }

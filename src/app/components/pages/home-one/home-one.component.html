@@ -5,14 +5,15 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="banner-content">
-                            <h1>{{ bannerData.title }}</h1>
-                            <p>{{ bannerData.description }}</p>
+                            <h1>{{ bannerData?.title }}</h1>
+                            <p>{{ bannerData?.description }}</p>
                             <div class="banner-btn">
-                                <a routerLink="/" ngClass="box-btn">
-                                    Contact Us
-                                </a>
-                                <a routerLink="/" ngClass="box-btn border-btn">
-                                    Know More
+                                <a
+                                    *ngFor="let button of bannerData?.buttons"
+                                    [routerLink]="button?.link"
+                                    ngClass="box-btn"
+                                >
+                                    {{ button?.label }}
                                 </a>
                             </div>
                         </div>
@@ -20,7 +21,7 @@
                     <div class="col-lg-6">
                         <div class="banner-img">
                             <img
-                                src="assets/images/home-bg-1-img.png"
+                                [src]="'assets/images/' + bannerData?.imageUrl"
                                 alt="banner-img"
                             />
                         </div>
@@ -55,13 +56,13 @@
 <section class="home-service-area pt-100 pb-70">
     <div class="container">
         <div class="section-title">
-            <h2>{{ ServicesData.title }}</h2>
-            <p>{{ ServicesData.description }}</p>
+            <h2>{{ ServicesData?.title }}</h2>
+            <p>{{ ServicesData?.description }}</p>
         </div>
 
         <div class="row">
             <div
-                *ngFor="let service of ServicesData.services"
+                *ngFor="let service of ServicesData?.services"
                 class="col-lg-4 col-sm-6"
             >
                 <div class="single-service">
@@ -69,10 +70,10 @@
                         <img [src]="service?.imageUrl" alt="service" />
                     </div>
                     <div class="service-content">
-                        <h3>{{ service.title }}</h3>
-                        <p>{{ service.description }}</p>
-                        <a [routerLink]="service.link" class="line-bnt">{{
-                            ServicesData.readme
+                        <h3>{{ service?.title }}</h3>
+                        <p>{{ service?.description }}</p>
+                        <a [routerLink]="service?.link" class="line-bnt">{{
+                            ServicesData?.readme
                         }}</a>
                     </div>
                 </div>
@@ -87,11 +88,11 @@
             <div class="col-lg-6 col-md-12">
                 <div class="company-content">
                     <div class="company-tittle">
-                        <h2>{{ companyData.title }}</h2>
-                        <p>{{ companyData.description }}</p>
+                        <h2>{{ companyData?.title }}</h2>
+                        <p>{{ companyData?.description }}</p>
                     </div>
-                    <a routerLink="/" class="box-btn">{{
-                        companyData?.button
+                    <a [routerLink]="companyData?.button?.link" class="box-btn">{{
+                        companyData?.button?.label
                     }}</a>
                 </div>
             </div>
@@ -99,7 +100,10 @@
             <div class="col-lg-6 col-md-12">
                 <div class="company-img">
                     <img
-                        [src]="imgagesUrl + companyData?.imageUrl"
+                        [src]="
+                            'assets/images/company/' +
+                            companyData?.image?.imageUrl
+                        "
                         alt="company"
                     />
                 </div>
@@ -111,14 +115,17 @@
 <section class="choose-area ptb-100">
     <div class="container">
         <div class="section-title">
-            <h2>{{ chooseData.title }}</h2>
-            <p>{{ chooseData.description }}</p>
+            <h2>{{ chooseData?.title }}</h2>
+            <p>{{ chooseData?.description }}</p>
         </div>
 
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="choose-img">
-                    <img src="assets/images/choose-img.png" alt="choose" />
+                    <img
+                        [src]="'assets/images/' + chooseData?.imageUrl"
+                        alt="choose"
+                    />
                 </div>
             </div>
 
@@ -127,11 +134,11 @@
                     <div class="faq-accordion">
                         <accordion>
                             <accordion-group
-                                *ngFor="let item of chooseData.questions"
+                                *ngFor="let item of chooseData?.questions"
                                 [isOpened]="false"
-                                [heading]="item.title"
+                                [heading]="item?.title"
                             >
-                                <p>{{ item.description }}</p>
+                                <p>{{ item?.description }}</p>
                             </accordion-group>
                         </accordion>
                     </div>
@@ -144,18 +151,18 @@
 <section class="home-process-area pt-100 pb-70">
     <div class="container">
         <div class="section-title">
-            <h2>{{ processData.title }}</h2>
-            <p>{{ processData.subTitle }}</p>
+            <h2>{{ processData?.title }}</h2>
+            <p>{{ processData?.subTitle }}</p>
         </div>
 
         <div class="row">
             <div
-                *ngFor="let process of processData.workingProcessItems"
+                *ngFor="let process of processData?.workingProcessItems"
                 class="col-lg-3 col-sm-6"
             >
                 <div class="single-process">
                     <div class="icon">
-                        <img [src]="process.icon" [alt]="process.title" />
+                        <img [src]="process?.icon" [alt]="process?.title" />
                         <span
                             ><img
                                 src="assets/images/process/next.png"
@@ -163,8 +170,8 @@
                         /></span>
                     </div>
                     <div class="content">
-                        <h3>{{ process.title }}</h3>
-                        <p>{{ process.description }}</p>
+                        <h3>{{ process?.title }}</h3>
+                        <p>{{ process?.description }}</p>
                     </div>
                 </div>
             </div>
@@ -175,50 +182,31 @@
 <section class="home-case ptb-100">
     <div class="container">
         <div class="section-title">
-            <h2>{{ caseData.title }}</h2>
-            <p>{{ caseData.description }}</p>
+            <h2>{{ caseData?.title }}</h2>
+            <p>{{ caseData?.description }}</p>
         </div>
-        <div class="case">
-            <div>
-                <ngx-tab
-                    *ngFor="let caseStudy of caseData.caseStudies"
-                    [tabTitle]="caseStudy.title"
-                >
-                    <div class="row case-list">
-                        <div
-                            *ngFor="let caseItem of caseStudy.items"
-                            class="col-lg-4 col-sm-6"
-                        >
-                            <div class="single-case">
-                                <div class="case-img">
-                                    <a [routerLink]="caseItem.link">
-                                        <img
-                                            [src]="caseItem?.imageUrl"
-                                            [alt]="caseItem.alt"
-                                        />
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a [routerLink]="caseItem.link">
-                                        <h3>{{ caseItem.title }}</h3>
-                                    </a>
-                                    <p>{{ caseItem.description }}</p>
-                                    <a
-                                        [routerLink]="caseItem.link"
-                                        class="line-bnt"
-                                        >{{ caseItem.linkLabel }}</a
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ngx-tab>
+        <div class="row case-list">
+            <div class="col-lg-4 col-sm-6" *ngFor="let caseStudy of caseData?.questions">
+              <div class="single-case">
+                <div class="case-img">
+                  <a [routerLink]="caseStudy?.link"><img [src]="caseStudy?.image"  /></a>
+                </div>
+                <div class="content">
+                  <a [routerLink]="caseStudy?.link">
+                    <h3>{{ caseStudy?.title }}</h3>
+                  </a>
+                  <p>{{ caseStudy?.description }}</p>
+                  <a [routerLink]="caseStudy?.link" class="line-bnt">View Project Details</a>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
         <div class="case-btn text-center">
             <p>
-                {{ caseData.buttonHeader
-                }}<a routerLink="/"> caseData.button.linkLabel </a>
+                {{ caseData?.buttonHeader
+                }}<a [routerLink]="caseData?.button?.link">{{
+                    caseData?.button?.linkLabel
+                }}</a>
             </p>
         </div>
     </div>
@@ -230,24 +218,24 @@
             <div class="col-lg-6">
                 <div class="contnet">
                     <div class="feature-tittle">
-                        <h2>{{ featureData.title }}</h2>
-                        <p>{{ featureData.description }}</p>
+                        <h2>{{ featureData?.title }}</h2>
+                        <p>{{ featureData?.description }}</p>
                     </div>
                     <ul>
-                        <li *ngFor="let feature of featureData.whoWeAreItem">
+                        <li *ngFor="let feature of featureData?.whoWeAreItem">
                             <i class="flaticon-correct"></i>
-                            {{ feature.description }}
+                            {{ feature?.description }}
                         </li>
                     </ul>
-                    <a [routerLink]="featureData.buttonLink" class="box-btn">{{
-                        featureData.buttonText
+                    <a [routerLink]="featureData?.buttonLink" class="box-btn">{{
+                        featureData?.buttonText
                     }}</a>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="feature-img">
-                    <img src="assets/images/feature-img.png" alt="feature" />
+                    <img [src]="featureData?.image?.imageUrl" alt="feature" />
                 </div>
             </div>
         </div>
@@ -257,26 +245,26 @@
 <section class="home-team-area ptb-100">
     <div class="container">
         <div class="section-title">
-            <h2>{{ teamData.title }}</h2>
-            <p>{{ teamData.description }}</p>
+            <h2>{{ teamData?.title }}</h2>
+            <p>{{ teamData?.description }}</p>
         </div>
         <div class="home-team-slider">
             <owl-carousel-o [options]="teamSlides">
                 <ng-template
                     carouselSlide
-                    *ngFor="let member of teamData.ourEmployeesItems"
+                    *ngFor="let member of teamData?.ourEmployeesItems"
                 >
                     <div class="single-team">
                         <div class="team-img">
                             <img
-                                [src]="imgagesUrl + member?.imageUrl"
+                                [src]="'assets/images/team/' + member?.imageUrl"
                                 alt="team"
                             />
                         </div>
 
                         <div class="content text-center">
-                            <h3>{{ member.fullName }}</h3>
-                            <p>{{ member.branch }}</p>
+                            <h3>{{ member?.fullName }}</h3>
+                            <p>{{ member?.branch }}</p>
                         </div>
                     </div>
                 </ng-template>
@@ -288,23 +276,23 @@
 <!-- <section class="client-area ptb-100 bg-color">
     <div class="container">
         <div class="section-title">
-            <h2>{{ testimonialData.title }}</h2>
-            <p>{{ testimonialData.description }}</p>
+            <h2>{{ testimonialData?.title }}</h2>
+            <p>{{ testimonialData?.description }}</p>
         </div>
         <div class="client-wrap">
             <owl-carousel-o [options]="clientWrap">
                 <ng-template
                     carouselSlide
-                    *ngFor="let client of testimonialData.clientSaysItems"
+                    *ngFor="let client of testimonialData?.clientSaysItems"
                 >
                     <div class="single-client">
                         <img
                             [src]="'assets/images/client/' + client?.imageUrl"
                             alt="Image Client"
                         />
-                        <p>{{ client.description }}</p>
-                        <h3>{{ client.fullName }}</h3>
-                        <span>{{ client.branch }}</span>
+                        <p>{{ client?.description }}</p>
+                        <h3>{{ client?.fullName }}</h3>
+                        <span>{{ client?.branch }}</span>
                     </div>
                 </ng-template>
             </owl-carousel-o>
@@ -315,39 +303,39 @@
 <!-- <section class="home-blog-area ptb-100">
     <div class="container">
         <div class="section-title">
-            <h2>{{ blogData.title }}</h2>
-            <p>{{ blogData.description }}</p>
+            <h2>{{ blogData?.title }}</h2>
+            <p>{{ blogData?.description }}</p>
         </div>
 
         <div class="row">
             <div
                 class="col-lg-4 col-md-6"
-                *ngFor="let post of blogData.blogPosts"
+                *ngFor="let post of blogData?.blogPosts"
             >
                 <div class="single-blog">
                     <div class="blog-img">
-                        <a [routerLink]="post.link"
+                        <a [routerLink]="post?.link"
                             ><img
-                                [src]="post.image.imgSrc"
-                                [alt]="post.image.alt"
+                                [src]="post?.image?.imgSrc"
+                                [alt]="post?.image?.alt"
                         /></a>
                     </div>
 
                     <div class="content">
                         <ul>
-                            <li>{{ post.date }}</li>
+                            <li>{{ post?.date }}</li>
                             <li>
-                                <a [routerLink]="post.link">{{
-                                    post.author
+                                <a [routerLink]="post?.link">{{
+                                    post?.author
                                 }}</a>
                             </li>
                         </ul>
-                        <a [routerLink]="post.link"
-                            ><h3>{{ post.title }}</h3></a
+                        <a [routerLink]="post?.link"
+                            ><h3>{{ post?.title }}</h3></a
                         >
-                        <p>{{ post.description }}</p>
-                        <a [routerLink]="post.link" class="line-bnt">{{
-                            post.readmore
+                        <p>{{ post?.description }}</p>
+                        <a [routerLink]="post?.link" class="line-bnt">{{
+                            post?.readmore
                         }}</a>
                     </div>
                 </div>
@@ -356,9 +344,9 @@
 
         <div class="blog-btn text-center">
             <p>
-                {{ blogData.moreBlogsText }}
-                <a [routerLink]="blogData.moreBlogsLink">{{
-                    blogData.moreBlogsLinkText
+                {{ blogData?.moreBlogsText }}
+                <a [routerLink]="blogData?.moreBlogsLink">{{
+                    blogData?.moreBlogsLinkText
                 }}</a>
             </p>
         </div>
@@ -368,15 +356,16 @@
 <section class="home-contact-area bg-color ptb-100">
     <div class="container">
         <div class="section-title">
-            <span>{{ contactData.title }}</span>
-            <h2>{{ contactData.header }}</h2>
-            <p>{{ contactData.description }}</p>
+            <h2>{{ contactData?.title }}</h2>
+            <p>{{ contactData?.description }}</p>
         </div>
 
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
                 <div class="contact-img">
-                    <img src="assets/images/contact-img.png" alt="contact" />
+                    <img
+                        [src]="contactData?.image?.contactImage"
+                    />
                 </div>
             </div>
 
@@ -392,7 +381,9 @@
                                         id="name"
                                         class="form-control"
                                         required
-                                        placeholder="Name"
+                                        [placeholder]="
+                                            contactData?.formFields?.name
+                                        "
                                     />
                                 </div>
                             </div>
@@ -405,7 +396,9 @@
                                         id="email"
                                         class="form-control"
                                         required
-                                        placeholder="Email"
+                                        [placeholder]="
+                                            contactData?.formFields?.email
+                                        "
                                     />
                                 </div>
                             </div>
@@ -418,7 +411,9 @@
                                         id="phone_number"
                                         required
                                         class="form-control"
-                                        placeholder="{{ 'Phone' }}"
+                                        [placeholder]="
+                                            contactData?.formFields?.phone
+                                        "
                                     />
                                 </div>
                             </div>
@@ -431,9 +426,9 @@
                                         id="msg_subject"
                                         class="form-control"
                                         required
-                                        placeholder="{{
+                                        [placeholder]="
                                             contactData?.formFields?.subject
-                                        }}"
+                                        "
                                     />
                                 </div>
                             </div>
@@ -447,7 +442,9 @@
                                         cols="30"
                                         rows="5"
                                         required
-                                        placeholder="Message"
+                                        [placeholder]="
+                                            contactData?.formFields?.message
+                                        "
                                     ></textarea>
                                 </div>
                             </div>
@@ -457,7 +454,7 @@
                                     type="submit"
                                     class="default-btn page-btn box-btn"
                                 >
-                                    Submit
+                                    {{ contactData?.submitButtonText }}
                                 </button>
                             </div>
                         </div>

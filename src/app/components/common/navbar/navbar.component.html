@@ -72,7 +72,7 @@
                         <li *ngFor="let item of menuItems" class="nav-item">
                             <!-- Çocuk öğesi olmayan birinci seviye öğe bağlantısı -->
                             <a
-                                *ngIf="!item.children"
+                                *ngIf="!item.children.length"
                                 [routerLink]="item.link"
                                 class="nav-link"
                                 routerLinkActive="active"
@@ -83,7 +83,7 @@
 
                             <!-- Çocuk öğeleri olan birinci seviye öğe -->
                             <a
-                                *ngIf="item.children"
+                                *ngIf="item.children.length"
                                 href="javascript:void(0)"
                                 class="nav-link dropdown-toggle"
                             >
@@ -91,7 +91,7 @@
                             </a>
 
                             <!-- Çok seviyeli alt menüleri oluşturmak için yeniden kullanılan şablon -->
-                            <ul *ngIf="item.children" class="dropdown-menu">
+                            <ul *ngIf="item.children.length" class="dropdown-menu">
                                 <ng-container
                                     *ngTemplateOutlet="
                                         recursiveMenu;

@@ -1,19 +1,19 @@
 <section class="home-service-area ptb-100">
   <div class="container">
     <div class="section-title">
-      <h2>{{ solutionsData.title }}</h2>
-      <p>{{ solutionsData.description }}</p>
+      <h2>{{ solutionsData?.title }}</h2>
+      <p>{{ solutionsData?.description }}</p>
     </div>
 
     <div class="row">
-      <div class="col-lg-4 col-sm-6" *ngFor="let service of solutionsData.serviceItems">
+      <div class="col-lg-4 col-sm-6" *ngFor="let service of solutionsData?.serviceItems">
         <div class="single-service">
           <div class="service-img">
-            <img [src]="service.images"/>
+            <img [src]="service?.images"/>
           </div>
           <div class="service-content">
-            <h3>{{ service.title }}</h3>
-            <p>{{ service.description }}</p>
+            <h3>{{ service?.title }}</h3>
+            <p>{{ service?.description }}</p>
           </div>
         </div>
       </div>

@@ -1,22 +1,3 @@
-<div class="page-title-area">
-    <div class="container">
-        <div class="page-title-content">
-            <h2>Contact Us</h2>
-            <ul>
-                <li><a routerLink="/">Home </a></li>
-                <li class="active">Contact Us</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="page-shape">
-        <div class="shape1"><img src="assets/images/shape/1.png" alt="shape" /></div>
-        <div class="shape3"><img src="assets/images/shape/3.png" alt="shape" /></div>
-        <div class="shape4"><img src="assets/images/shape/4.png" alt="shape" /></div>
-        <div class="shape5"><img src="assets/images/shape/5.png" alt="shape" /></div>
-        <div class="shape6"><img src="assets/images/shape/6.png" alt="shape" /></div>
-    </div>
-</div>
 
 <section class="contact-area pt-100 pb-70">
     <div class="container">
@@ -29,7 +10,7 @@
 
                     <div class="content">
                         <h3>Email</h3>
-                        <p>hello&#64;aiva.com</p>
+                        <p>{{contactData?.email}}</p>
                     </div>
                 </div>
             </div>
@@ -42,7 +23,7 @@
 
                     <div class="content">
                         <h3>Address</h3>
-                        <p>28/A Street, New York City, USA</p>
+                        <p>{{contactData?.address}}</p>
                     </div>
                 </div>
             </div>
@@ -55,7 +36,7 @@
 
                     <div class="content">
                         <h3>Phone</h3>
-                        <p>+1 (321) 984 754</p>
+                        <p>{{contactData?.phone}}</p>
                     </div>
                 </div>
             </div>
@@ -66,9 +47,8 @@
 <section class="home-contact-area home-2-contact pb-100">
     <div class="container">
         <div class="section-title">
-            <span>Contact Us</span>
-            <h2>Let Us Know About Your Project Idea!</h2>
-            <p>It is a long established fact that a reader will be distracted by the rea dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more.</p>
+            <h2>{{contactData?.title}}</h2>
+            <p>{{contactData?.description}}</p>
         </div>
 
         <div class="row">

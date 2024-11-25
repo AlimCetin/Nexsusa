@@ -34,6 +34,17 @@ export class SharedService {
     getNavbar(): any {
         return this.navbar.value;
     }
+    /* ---------------------------------------- */
+    private navbarInfo = new BehaviorSubject<any>(null);
+    navbarInfoData$ = this.navbarInfo.asObservable();
+
+    setNavbarInfo(navbarInfoNew: any): void {
+        this.navbar.next(navbarInfoNew);
+    }
+
+    getNavbarInfo(): any {
+        return this.navbarInfo.value;
+    }
 
     /* ---------------------------------------- */
     private footer = new BehaviorSubject<any>(null);

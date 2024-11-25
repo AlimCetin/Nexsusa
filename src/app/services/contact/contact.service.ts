@@ -6,14 +6,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AboutService {
-
-  private apiUrl = environment.baseUrl+'AboutUs/Get'; // API URL'si
+export class ContactService {
+  private apiUrl = environment.baseUrl+'ContactUs/Get'; // API URL'si
 
   constructor(private http: HttpClient) {}
 
   // Navbar öğelerini almak için servis fonksiyonu
-  getAbout(languageId: number): Observable<any> {
+  getContact(languageId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}?languageId=${languageId}`);
   }
 }

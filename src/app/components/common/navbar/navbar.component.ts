@@ -90,28 +90,17 @@ export class NavbarComponent implements OnInit {
         private navbarService: NavbarService,
         private sharedService: SharedService
     ) {
-        // this.router.events.subscribe((event) => {
-        //     if (event instanceof NavigationEnd) {
-        //         this.location = this.router.url;
-        //         if (this.location == "/home-three") {
-        //             this.navbarClass = "navbar-area three";
-        //         } else {
-        //             this.navbarClass = "navbar-area";
-        //         }
-        //     }
-        // });
+        
     }
 
     ngOnInit(): void {
         this.init();
-
-        this.sharedService.navbarData$.subscribe((navData) => {
-            this.homePageInfo = navData;
-        });
+        this.sharedService.navbarInfoData$.subscribe((navInfoData)=>{this.homePageInfo=navInfoData;})
+         this.getNavbarItems();  
     }
+
     async init() {
         // this.getLanguageService();
-        this.setLanguage();
         await this.getLanguages();
     }
     async getLanguages() {
@@ -130,15 +119,43 @@ export class NavbarComponent implements OnInit {
             }
         });
     }
-    setLanguage() {
-        this.sharedService.lang$.subscribe((langData) => {
-            console.log("LangData:", langData);
-            this.language = langData;
+
+    getNavbarItems(): void {
+        const languageId = Number(localStorage.getItem("languageId"));
+        this.navbarService.getNavbarItems(languageId ).subscribe({
+            next: (response) => {
+                console.log("navbar " + response.data);
+                if (response.statusCode === 200) {
+                    response.data.forEach((item) => {
+                        this.menuItems.forEach((element) => {            
+                            // Label kontrolü
+                            if (element.label === item.label) {
+                                // `item.navBarItemSubItems` kontrolü
+                                if (item.navBarItemSubItems && item.navBarItemSubItems.length > 0) {
+                                     this.subItems = item.navBarItemSubItems.map((subItem) => ({
+                                        label: subItem.name,
+                                        link: subItem.url,
+                                        id: item.id,
+                                        icon: item.icon,
+                                    }));
+                                    // Sub-items'ları ekleme
+                                    element.children.push(...this.subItems);
+                                }
+                            }
+                        });
+                    });
+                }
+            },
+            error: (err) => {
+                console.error("Navbar öğeleri alınamadı:", err);
+            },
         });
     }
 
     selectLanguage(language: any): void {
         this.languagesDefault = language; // Seçilen dili set et
-        this.sharedService.setLang(language);
+        localStorage.setItem("languageId", language.id);
+        this.sharedService.setLang(language)
+        window.location.reload();
     }
 }

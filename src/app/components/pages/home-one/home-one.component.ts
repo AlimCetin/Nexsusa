@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { OwlOptions } from "ngx-owl-carousel-o";
+import { title } from "process";
 import { HomeService } from "../../../services/home/home.service";
 import { SharedService } from "../../../services/shared.service";
-import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-home-one",
@@ -10,11 +10,6 @@ import { environment } from "src/environments/environment";
     styleUrls: ["./home-one.component.scss"],
 })
 export class HomeOneComponent implements OnInit {
-    languages: any[] = [];
-    languagesDefault: any = {};
-    languageId: number = 1;
-    homePageData: any;
-
     constructor(
         private homeService: HomeService,
         private sharedService: SharedService
@@ -41,13 +36,7 @@ export class HomeOneComponent implements OnInit {
 
     contactData: any = {};
 
-    imgagesUrl = environment.imagesUrl;
-
     ngOnInit(): void {
-        this.sharedService.lang$.subscribe((lang) => {
-            this.languageId = lang?.id;
-            this.getHomePageData();
-        });
         this.getHomePageData();
     }
 
@@ -55,8 +44,11 @@ export class HomeOneComponent implements OnInit {
         const languageId = Number(localStorage.getItem("languageId"));
         this.homeService.getHomePage(languageId).subscribe({
             next: (response) => {
-                console.log("HomePage Data:", response); // Veriyi kontrol etmek için
+                console.log("HomePage Data:", response);
                 if (response.statusCode == 200) {
+                    this.sharedService.setNavbarInfo(
+                        response.data.homePageInfo
+                    );
                     this.bannerData = response.data.slider;
                     this.ServicesData = response.data.services;
                     this.companyData = response.data.ourCompany;
@@ -67,6 +59,7 @@ export class HomeOneComponent implements OnInit {
                     this.teamData = response.data.ourEmployees;
                     this.testimonialData = response.data.clientSays;
                     this.blogData = response.data.regularBlogs;
+                    this.sharedService.setFooter(response.data.footer);
                 }
             },
             error: (err) => {
