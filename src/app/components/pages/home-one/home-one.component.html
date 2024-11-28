@@ -62,12 +62,15 @@
 
         <div class="row">
             <div
-                *ngFor="let service of ServicesData?.services"
+                *ngFor="let service of ServicesData?.serviceItems"
                 class="col-lg-4 col-sm-6"
             >
                 <div class="single-service">
                     <div class="service-img">
-                        <img [src]="service?.imageUrl" alt="service" />
+                        <img
+                            [src]="imagesUrl + service?.imageUrl"
+                            alt="service"
+                        />
                     </div>
                     <div class="service-content">
                         <h3>{{ service?.title }}</h3>
@@ -91,9 +94,7 @@
                         <h2>{{ companyData?.title }}</h2>
                         <p>{{ companyData?.description }}</p>
                     </div>
-                    <a
-                        [routerLink]="companyData?.button?.link"
-                        class="box-btn"
+                    <a [routerLink]="companyData?.button?.link" class="box-btn"
                         >Know More</a
                     >
                 </div>
@@ -121,10 +122,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="choose-img">
-                    <img
-                        src="assets/images/choose-img.png"
-                        alt="choose"
-                    />
+                    <img src="assets/images/choose-img.png" alt="choose" />
                 </div>
             </div>
 
@@ -233,7 +231,9 @@
                             {{ feature?.description }}
                         </li>
                     </ul>
-                    <a [routerLink]="featureData?.buttonLink" class="box-btn">Lets Talk!</a>
+                    <a [routerLink]="featureData?.buttonLink" class="box-btn"
+                        >Lets Talk!</a
+                    >
                 </div>
             </div>
 
@@ -456,7 +456,7 @@
                                     type="submit"
                                     class="default-btn page-btn box-btn"
                                 >
-                                Submit
+                                    Submit
                                 </button>
                             </div>
                         </div>

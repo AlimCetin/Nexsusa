@@ -96,10 +96,9 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.init();
-        // this.sharedService.navbarInfoData$.subscribe((navInfoData)=>{this.homePageInfo=navInfoData;})
-        //  this.getNavbarItems();
+        const languageId = Number(localStorage.getItem("languageId"));
         this.http
-            .get(environment.baseUrl + "HomePageInfo/GetHomePageInfo")
+            .get(environment.baseUrl + `HomePageInfo/GetHomePageInfo?languageId=${languageId}`)
             .subscribe((response: any) => {
                 console.log(response);
                 this.homePageInfo = response.data;
