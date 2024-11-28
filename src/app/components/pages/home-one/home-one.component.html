@@ -8,13 +8,16 @@
                             <h1>{{ bannerData?.title }}</h1>
                             <p>{{ bannerData?.description }}</p>
                             <div class="banner-btn">
-                                <a
-                                    *ngFor="let button of bannerData?.buttons"
-                                    [routerLink]="button?.link"
-                                    ngClass="box-btn"
-                                >
-                                    {{ button?.label }}
+                                <a ngClass="box-btn"
+                                    >{{
+                                        "translate.contactUs"
+                                            | translates
+                                            | async
+                                    }}
                                 </a>
+                                <a ngClass="box-btn border-btn">{{
+                                    "translate.knowMore" | translates | async
+                                }}</a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +71,7 @@
                 <div class="single-service">
                     <div class="service-img">
                         <img
-                            [src]="imagesUrl + service?.imageUrl"
+                            [src]="imagesUrl + service?.iconUrl"
                             alt="service"
                         />
                     </div>
@@ -94,9 +97,9 @@
                         <h2>{{ companyData?.title }}</h2>
                         <p>{{ companyData?.description }}</p>
                     </div>
-                    <a [routerLink]="companyData?.button?.link" class="box-btn"
-                        >Know More</a
-                    >
+                    <a class="box-btn">{{
+                        "translate.knowMore" | translates | async
+                    }}</a>
                 </div>
             </div>
 
@@ -159,7 +162,10 @@
             >
                 <div class="single-process">
                     <div class="icon">
-                        <img [src]="process?.icon" [alt]="process?.title" />
+                        <img
+                            [src]="imagesUrl + process?.imageUrl"
+                            [alt]="process?.title"
+                        />
                         <span
                             ><img
                                 src="assets/images/process/next.png"
@@ -383,9 +389,11 @@
                                         id="name"
                                         class="form-control"
                                         required
-                                        [placeholder]="
-                                            contactData?.formFields?.name
-                                        "
+                                        placeholder="{{
+                                            'translate.name'
+                                                | translates
+                                                | async
+                                        }}"
                                     />
                                 </div>
                             </div>
@@ -398,9 +406,11 @@
                                         id="email"
                                         class="form-control"
                                         required
-                                        [placeholder]="
-                                            contactData?.formFields?.email
-                                        "
+                                        placeholder="{{
+                                            'translate.email'
+                                                | translates
+                                                | async
+                                        }}"
                                     />
                                 </div>
                             </div>

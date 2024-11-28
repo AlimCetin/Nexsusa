@@ -18,7 +18,16 @@ export class LanguageService {
     getCurrentLanguageId(): number {
         return Number(localStorage.getItem("languageId"));
     }
-    getTranslation(value: string, languageId: number): string {
-        return value;
+    async getTranslation(key: string, languageId: number): Promise<string> {
+        const lang = await JSON.parse(
+            localStorage.getItem("lang" + languageId.toString())
+        );
+        if (lang) {
+            const resource = await lang.find((x: any) => x.key === key);
+            if (resource) {
+                return resource.value;
+            }
+        }
+        return key;
     }
 }

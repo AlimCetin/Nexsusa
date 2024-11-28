@@ -3,11 +3,14 @@ import { OwlOptions } from "ngx-owl-carousel-o";
 import { HomeService } from "../../../services/home/home.service";
 import { SharedService } from "../../../services/shared.service";
 import { environment } from "src/environments/environment";
+import { TranslatesPipe } from "src/app/services/pipes/translate.pipe";
+import { CurrencyPipe } from "@angular/common";
 
 @Component({
     selector: "app-home-one",
     templateUrl: "./home-one.component.html",
     styleUrls: ["./home-one.component.scss"],
+
 })
 export class HomeOneComponent implements OnInit {
     constructor(

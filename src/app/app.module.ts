@@ -33,6 +33,7 @@ import { TermsConditionsComponent } from './components/pages/terms-conditions/te
 import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privacy-policy.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslatesPipe } from './services/pipes/translate.pipe';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { HttpClientModule } from '@angular/common/http';
     FaqComponent,
     TermsConditionsComponent,
     PrivacyPolicyComponent,
+    TranslatesPipe,
     ContactComponent
   ],
   imports: [
