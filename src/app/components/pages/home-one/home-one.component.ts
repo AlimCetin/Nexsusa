@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { OwlOptions } from "ngx-owl-carousel-o";
 import { HomeService } from "../../../services/home/home.service";
 import { SharedService } from "../../../services/shared.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-home-one",
@@ -35,8 +36,25 @@ export class HomeOneComponent implements OnInit {
 
     contactData: any = {};
 
+    imagesUrl = environment.imagesUrl;
     ngOnInit(): void {
         this.getHomePageData();
+        this.getContact();
+    }
+
+    getContact(): void {
+        const languageId = Number(localStorage.getItem("languageId"));
+        this.homeService.getContact(languageId).subscribe({
+            next: (response) => {
+                console.log("Contact Data:", response);
+                if (response.statusCode == 200) {
+                    this.contactData = response.data;
+                }
+            },
+            error: (err) => {
+                console.error("Contact verisi alınamadı:", err);
+            },
+        });
     }
 
     getHomePageData(): void {

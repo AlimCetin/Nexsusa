@@ -8,6 +8,8 @@ import {
 import { LanguageService } from "../../../services/language/language.service";
 import { NavbarService } from "../../../services/navbar/navbar.service";
 import { SharedService } from "../../../services/shared.service";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-navbar",
@@ -88,15 +90,20 @@ export class NavbarComponent implements OnInit {
         location: Location,
         private languageService: LanguageService,
         private navbarService: NavbarService,
-        private sharedService: SharedService
-    ) {
-        
-    }
+        private sharedService: SharedService,
+        private http: HttpClient
+    ) {}
 
     ngOnInit(): void {
         this.init();
-        this.sharedService.navbarInfoData$.subscribe((navInfoData)=>{this.homePageInfo=navInfoData;})
-         this.getNavbarItems();  
+        // this.sharedService.navbarInfoData$.subscribe((navInfoData)=>{this.homePageInfo=navInfoData;})
+        //  this.getNavbarItems();
+        this.http
+            .get(environment.baseUrl + "HomePageInfo/GetHomePageInfo")
+            .subscribe((response: any) => {
+                console.log(response);
+                this.homePageInfo = response.data;
+            });
     }
 
     async init() {
@@ -122,22 +129,27 @@ export class NavbarComponent implements OnInit {
 
     getNavbarItems(): void {
         const languageId = Number(localStorage.getItem("languageId"));
-        this.navbarService.getNavbarItems(languageId ).subscribe({
+        this.navbarService.getNavbarItems(languageId).subscribe({
             next: (response) => {
                 console.log("navbar " + response.data);
                 if (response.statusCode === 200) {
                     response.data.forEach((item) => {
-                        this.menuItems.forEach((element) => {            
+                        this.menuItems.forEach((element) => {
                             // Label kontrolü
                             if (element.label === item.label) {
                                 // `item.navBarItemSubItems` kontrolü
-                                if (item.navBarItemSubItems && item.navBarItemSubItems.length > 0) {
-                                     this.subItems = item.navBarItemSubItems.map((subItem) => ({
-                                        label: subItem.name,
-                                        link: subItem.url,
-                                        id: item.id,
-                                        icon: item.icon,
-                                    }));
+                                if (
+                                    item.navBarItemSubItems &&
+                                    item.navBarItemSubItems.length > 0
+                                ) {
+                                    this.subItems = item.navBarItemSubItems.map(
+                                        (subItem) => ({
+                                            label: subItem.name,
+                                            link: subItem.url,
+                                            id: item.id,
+                                            icon: item.icon,
+                                        })
+                                    );
                                     // Sub-items'ları ekleme
                                     element.children.push(...this.subItems);
                                 }
@@ -155,7 +167,7 @@ export class NavbarComponent implements OnInit {
     selectLanguage(language: any): void {
         this.languagesDefault = language; // Seçilen dili set et
         localStorage.setItem("languageId", language.id);
-        this.sharedService.setLang(language)
+        this.sharedService.setLang(language);
         window.location.reload();
     }
 }
