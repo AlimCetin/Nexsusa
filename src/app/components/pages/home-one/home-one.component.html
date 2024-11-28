@@ -21,7 +21,7 @@
                     <div class="col-lg-6">
                         <div class="banner-img">
                             <img
-                                [src]="'assets/images/' + bannerData?.imageUrl"
+                                src="assets/images/home-bg-1-img.png"
                                 alt="banner-img"
                             />
                         </div>
@@ -91,19 +91,18 @@
                         <h2>{{ companyData?.title }}</h2>
                         <p>{{ companyData?.description }}</p>
                     </div>
-                    <a [routerLink]="companyData?.button?.link" class="box-btn">{{
-                        companyData?.button?.label
-                    }}</a>
+                    <a
+                        [routerLink]="companyData?.button?.link"
+                        class="box-btn"
+                        >Know More</a
+                    >
                 </div>
             </div>
 
             <div class="col-lg-6 col-md-12">
                 <div class="company-img">
                     <img
-                        [src]="
-                            'assets/images/company/' +
-                            companyData?.image?.imageUrl
-                        "
+                        src="assets/images/company/company-img.jpg"
                         alt="company"
                     />
                 </div>
@@ -123,7 +122,7 @@
             <div class="col-lg-6">
                 <div class="choose-img">
                     <img
-                        [src]="'assets/images/' + chooseData?.imageUrl"
+                        src="assets/images/choose-img.png"
                         alt="choose"
                     />
                 </div>
@@ -186,21 +185,28 @@
             <p>{{ caseData?.description }}</p>
         </div>
         <div class="row case-list">
-            <div class="col-lg-4 col-sm-6" *ngFor="let caseStudy of caseData?.questions">
-              <div class="single-case">
-                <div class="case-img">
-                  <a [routerLink]="caseStudy?.link"><img [src]="caseStudy?.image"  /></a>
+            <div
+                class="col-lg-4 col-sm-6"
+                *ngFor="let caseStudy of caseData?.questions"
+            >
+                <div class="single-case">
+                    <div class="case-img">
+                        <a [routerLink]="caseStudy?.link"
+                            ><img [src]="caseStudy?.image"
+                        /></a>
+                    </div>
+                    <div class="content">
+                        <a [routerLink]="caseStudy?.link">
+                            <h3>{{ caseStudy?.title }}</h3>
+                        </a>
+                        <p>{{ caseStudy?.description }}</p>
+                        <a [routerLink]="caseStudy?.link" class="line-bnt"
+                            >View Project Details</a
+                        >
+                    </div>
                 </div>
-                <div class="content">
-                  <a [routerLink]="caseStudy?.link">
-                    <h3>{{ caseStudy?.title }}</h3>
-                  </a>
-                  <p>{{ caseStudy?.description }}</p>
-                  <a [routerLink]="caseStudy?.link" class="line-bnt">View Project Details</a>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         <div class="case-btn text-center">
             <p>
                 {{ caseData?.buttonHeader
@@ -227,15 +233,13 @@
                             {{ feature?.description }}
                         </li>
                     </ul>
-                    <a [routerLink]="featureData?.buttonLink" class="box-btn">{{
-                        featureData?.buttonText
-                    }}</a>
+                    <a [routerLink]="featureData?.buttonLink" class="box-btn">Lets Talk!</a>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="feature-img">
-                    <img [src]="featureData?.image?.imageUrl" alt="feature" />
+                    <img src="assets/images/feature-img.png" alt="feature" />
                 </div>
             </div>
         </div>
@@ -363,9 +367,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
                 <div class="contact-img">
-                    <img
-                        [src]="contactData?.image?.contactImage"
-                    />
+                    <img src="assets/images/contact-img.png" />
                 </div>
             </div>
 
@@ -454,7 +456,7 @@
                                     type="submit"
                                     class="default-btn page-btn box-btn"
                                 >
-                                    {{ contactData?.submitButtonText }}
+                                Submit
                                 </button>
                             </div>
                         </div>

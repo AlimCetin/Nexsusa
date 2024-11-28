@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { OwlOptions } from "ngx-owl-carousel-o";
-import { title } from "process";
 import { HomeService } from "../../../services/home/home.service";
 import { SharedService } from "../../../services/shared.service";
 
