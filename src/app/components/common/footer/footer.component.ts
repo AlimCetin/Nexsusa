@@ -1,6 +1,6 @@
 import { SharedService } from './../../../services/shared.service';
 import { Component, OnInit } from '@angular/core';
-
+import { environment } from "src/environments/environment";
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -8,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
   footer:any;
+  footerService:any;
 
   constructor( private sharedService:SharedService) { }
 
-  logoUrl = 'assets/images/logo2.png';
+  logoUrl = environment.logoUrl2;
 
   
 
@@ -30,6 +31,7 @@ export class FooterComponent implements OnInit {
   
   ngOnInit(): void {
     this.sharedService.footerData$.subscribe((footData)=>{this.footer=footData;})
+    this.sharedService.footerServiceData$.subscribe((footerService)=>{this.footerService=footerService;})
   }
 
 }

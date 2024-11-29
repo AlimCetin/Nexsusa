@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-sm-0">
                 <div class="logo">
                     <a routerLink="/"
-                        ><img src="assets/images/logo.png" alt="logo"
+                        ><img [src]="logoUrl" alt="logo"
                     /></a>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                                 routerLinkActive="active"
                                 [routerLinkActiveOptions]="{ exact: true }"
                             >
-                                {{ item.label }}
+                            {{ 'navbar.' + item.label | translates | async }}
                             </a>
 
                             <!-- Çocuk öğeleri olan birinci seviye öğe -->
@@ -145,7 +145,7 @@
                                 href="javascript:void(0)"
                                 class="nav-link dropdown-toggle"
                             >
-                                {{ languagesDefault.name }}
+                                {{ languageDefaultName }}
                             </a>
                             <ul class="dropdown-menu">
                                 <li

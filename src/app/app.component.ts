@@ -27,11 +27,11 @@ export class AppComponent {
 
     ngOnInit(){
         this.recallJsFuntions();
-        this.sharedService.getLanguages().then((response :any) => {
+       /*  this.sharedService.getLanguages().then((response :any) => {
             const languageId = response.data.find((x: { isDefault: any; }) => x.isDefault).id;
             localStorage.setItem("languageId", languageId);
             console.log("LanguageId:", languageId);
-        });
+        }); */
     }
 
     recallJsFuntions() {

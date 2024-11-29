@@ -1,3 +1,5 @@
+<div class="page-title-area" >
+</div>
 <section class="home-service-area ptb-100">
   <div class="container">
     <div class="section-title">
@@ -9,7 +11,7 @@
       <div class="col-lg-4 col-sm-6" *ngFor="let service of solutionsData?.serviceItems">
         <div class="single-service">
           <div class="service-img">
-            <img [src]="service?.images"/>
+            <img [src]="imagesUrl + service?.iconUrl"/>
           </div>
           <div class="service-content">
             <h3>{{ service?.title }}</h3>

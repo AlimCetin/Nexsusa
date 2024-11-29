@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { SolutionsService } from 'src/app/services/solutions/solutions.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-solutions',
@@ -9,7 +10,7 @@ import { SolutionsService } from 'src/app/services/solutions/solutions.service';
 })
 export class SolutionsComponent implements OnInit {
   solutionsData:any;
-
+imagesUrl=environment.imagesUrl;
  
   constructor(private solutionsService: SolutionsService,
     private sharedService: SharedService
@@ -26,7 +27,7 @@ getSolutionsPageData(): void {
     this.solutionsService.getSolutions(languageId).subscribe({
       next: (response) => {
         console.log('solution Data:', response); // Veriyi kontrol etmek için
-        if (response.statusCode==200) {
+        if (response.isSuccess) {
    this.solutionsData=response.data
 
         }

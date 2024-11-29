@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AboutService } from 'src/app/services/about/about.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-about',
@@ -11,7 +12,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AboutComponent implements OnInit {
 
 	aboutData: any;
-
+	imagesUrl = environment.imagesUrl;
   
 	constructor(private aboutService: AboutService,
   ) {}

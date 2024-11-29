@@ -13,13 +13,6 @@ export class SharedService {
     private language = new BehaviorSubject<any>(null);
     lang$ = this.language.asObservable();
 
-    setLang(langNew: any): void {
-        this.language.next(langNew);
-    }
-
-    getLang(): any {
-        return this.language.value;
-    }
     async getLanguages() {
         return firstValueFrom(this._http.get(environment.baseUrl+"Language/Get")) ;
     }
@@ -56,6 +49,19 @@ export class SharedService {
 
     getFooter(): any {
         return this.footer.value;
+    }
+
+
+    /* ---------------------------------------- */
+    private footerService = new BehaviorSubject<any>(null);
+    footerServiceData$ = this.footerService.asObservable();
+
+    setFooterService(footerNew: any): void {
+        this.footerService.next(footerNew);
+    }
+
+    getFooterServis(): any {
+        return this.footerService.value;
     }
 }
 // function firstValueFrom(arg0: Observable<Object>) {

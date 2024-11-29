@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CaseService {
-  private apiUrl = environment.baseUrl+'ChooseUs/Get'; // API URL'si
+  private apiUrl = environment.baseUrl+'api/WorkShowcase'; // API URL'si
 
   constructor(private http: HttpClient) {}
 

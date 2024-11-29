@@ -1,3 +1,5 @@
+<div class="page-title-area" >
+  </div>
 <!-- Company Section -->
 <section class="home-company-area">
     <div class="container">
@@ -12,7 +14,7 @@
         </div>
         <div class="col-lg-6 col-md-12">
           <div class="company-img">
-            <img [src]="aboutData?.ourCompany?.imageUrl" />
+            <img [src]="imagesUrl+aboutData?.ourCompany?.imageUrl" />
           </div>
         </div>
       </div>
@@ -25,7 +27,7 @@
       <div class="row align-items-center choose-c">
         <div class="col-lg-6">
           <div class="choose-img">
-            <img [src]="aboutData?.videoUrl" />
+            <img [src]="imagesUrl+aboutData?.imageUrl" />
             <div class="technology-video">
               <a [href]="aboutData?.videoUrl" class="video-btn popup-youtube"><i class="bx bx-play"></i></a>
             </div>
@@ -35,7 +37,7 @@
           <div class="technology-content">
             <h2>{{ aboutData?.title }}</h2>
             <p >{{ aboutData?.description }}</p>
-            <a routerLink="/contact" class="box-btn">Contact Us</a>
+            <a routerLink="/contact" class="box-btn">{{'translates.contactUs' | translates| async}}</a>
           </div>
         </div>
       </div>
@@ -57,7 +59,7 @@
                 <i class="flaticon-correct"></i> {{ feature }}
               </li>
             </ul>
-            <a routerLink="/contact" class="box-btn">Lets Talk!</a>
+            <a routerLink="/contact" class="box-btn">{{'translates.letsTalk' | translates| async}}</a>
           </div>
         </div>
         <div class="col-lg-6">

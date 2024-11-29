@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:7236/',
-  imagesUrl: 'https://localhost:7236/Images/',
+  baseUrl: 'https://apinexsus.nexsuss.net/',
+  imagesUrl: 'https:/apinexsus.nexsuss.net/Images/',
+  logoUrl1:'assets/images/logo.png',
+  logoUrl2:'assets/images/logo2.png',
   debugMode: true,
 
 };

@@ -69,6 +69,7 @@ export class HomeOneComponent implements OnInit {
                     this.sharedService.setNavbarInfo(
                         response.data.homePageInfo
                     );
+                    this.sharedService.setNavbar(response.data.navBarItems);
                     this.bannerData = response.data.slider;
                     this.ServicesData = response.data.services;
                     this.companyData = response.data.ourCompany;
@@ -80,6 +81,7 @@ export class HomeOneComponent implements OnInit {
                     this.testimonialData = response.data.clientSays;
                     this.blogData = response.data.regularBlogs;
                     this.sharedService.setFooter(response.data.footer);
+                    this.sharedService.setFooterService(response.data.services);
                 }
             },
             error: (err) => {

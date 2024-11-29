@@ -205,7 +205,7 @@
                         </a>
                         <p>{{ caseStudy?.description }}</p>
                         <a [routerLink]="caseStudy?.link" class="line-bnt"
-                            >View Project Details</a
+                            >{{'translates.details' | translates| async}}</a
                         >
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                         </li>
                     </ul>
                     <a [routerLink]="featureData?.buttonLink" class="box-btn"
-                        >Lets Talk!</a
+                        >{{'translates.letsTalk' | translates| async}}</a
                     >
                 </div>
             </div>
@@ -423,9 +423,11 @@
                                         id="phone_number"
                                         required
                                         class="form-control"
-                                        [placeholder]="
-                                            contactData?.formFields?.phone
-                                        "
+                                        placeholder="{{
+                                            'translate.phone'
+                                                | translates
+                                                | async
+                                        }}"
                                     />
                                 </div>
                             </div>
@@ -438,9 +440,11 @@
                                         id="msg_subject"
                                         class="form-control"
                                         required
-                                        [placeholder]="
-                                            contactData?.formFields?.subject
-                                        "
+                                        placeholder="{{
+                                            'translate.subject'
+                                                | translates
+                                                | async
+                                        }}"
                                     />
                                 </div>
                             </div>
@@ -454,9 +458,11 @@
                                         cols="30"
                                         rows="5"
                                         required
-                                        [placeholder]="
-                                            contactData?.formFields?.message
-                                        "
+                                        placeholder="{{
+                                            'translate.message'
+                                                | translates
+                                                | async
+                                        }}"
                                     ></textarea>
                                 </div>
                             </div>
@@ -466,7 +472,11 @@
                                     type="submit"
                                     class="default-btn page-btn box-btn"
                                 >
-                                    Submit
+                                {{
+                                    'translate.formSubmit'
+                                        | translates
+                                        | async
+                                }}"
                                 </button>
                             </div>
                         </div>

@@ -24,31 +24,13 @@ import { environment } from "src/environments/environment";
     ],
 })
 export class NavbarComponent implements OnInit {
-    languages: any[] = [
-        {
-            id: 1,
-            code: "TR",
-            name: "Türkçe",
-            isDefault: true,
-        },
-        {
-            id: 1,
-            code: "EN",
-            name: "English",
-            isDefault: true,
-        },
-    ];
-    languagesDefault: any = {
-        id: 1,
-        code: "TR",
-        name: "Türkçe",
-        isDefault: true,
-    };
-    language: any;
+   
+    logoUrl=environment.logoUrl1;
+    languageDefaultName= localStorage.getItem("languageName");
+    languages: any;
     navbarItems: any[] = [];
     subItems = [];
     homePageInfo: any;
-    location: any;
     navbarClass: any;
 
     classApplied = false;
@@ -66,12 +48,12 @@ export class NavbarComponent implements OnInit {
         },
         {
             label: "Solutions",
-            link: "#",
+            link: "solutions",
             children: [],
         },
         {
             label: "Case Studies",
-            link: "#",
+            link: "case-studies",
             children: [],
         },
         {
@@ -86,9 +68,6 @@ export class NavbarComponent implements OnInit {
     }
 
     constructor(
-        private router: Router,
-        location: Location,
-        private languageService: LanguageService,
         private navbarService: NavbarService,
         private sharedService: SharedService,
         private http: HttpClient
@@ -106,7 +85,6 @@ export class NavbarComponent implements OnInit {
     }
 
     async init() {
-        // this.getLanguageService();
         await this.getLanguages();
     }
     async getLanguages() {
@@ -115,20 +93,19 @@ export class NavbarComponent implements OnInit {
             if (response.isSuccess) {
                 this.languages = response.data;
                 for (const element of response.data) {
-                    if (element.isDefault == true) {
-                        this.languagesDefault = element;
-                        this.language = element;
-                        this.sharedService.setLang(element);
+                    if (element.isDefault == true && !localStorage.getItem("languageId") ) {
+                        this.languageDefaultName = element.name;
+                        localStorage.setItem("languageId", element.id);
+                        localStorage.setItem("languageName", element.name);
                     }
-                    console.log("Default Language:", this.languagesDefault);
+                    console.log("Default Language:", this.languageDefaultName);
                 }
             }
         });
     }
 
     getNavbarItems(): void {
-        const languageId = Number(localStorage.getItem("languageId"));
-        this.navbarService.getNavbarItems(languageId).subscribe({
+        this.sharedService.navbarData$.subscribe({
             next: (response) => {
                 console.log("navbar " + response.data);
                 if (response.statusCode === 200) {
@@ -164,9 +141,9 @@ export class NavbarComponent implements OnInit {
     }
 
     selectLanguage(language: any): void {
-        this.languagesDefault = language; // Seçilen dili set et
+        localStorage.setItem("languageName", language.name);
+        this.languageDefaultName = language.name; // Seçilen dili set et
         localStorage.setItem("languageId", language.id);
-        this.sharedService.setLang(language);
         window.location.reload();
     }
 }
