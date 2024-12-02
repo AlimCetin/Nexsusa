@@ -12,7 +12,7 @@ export class FooterComponent implements OnInit {
 
   constructor( private sharedService:SharedService) { }
 
-  logoUrl = environment.logoUrl2;
+  imagesUrl = environment.imagesUrl;
 
   
 
