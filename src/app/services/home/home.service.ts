@@ -18,6 +18,6 @@ export class HomeService {
 
     // Contact verilerini almak için metod
     getContact(languageId: number): Observable<any> {
-        return this.http.get<any>(`${environment.baseUrl}api/ContactUs/Get?languageId=${languageId}`);
+        return this.http.get<any>(`${environment.baseUrl}ContactUs/Get?languageId=${languageId}`);
     }
 }
