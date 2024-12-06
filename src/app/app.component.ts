@@ -19,7 +19,7 @@ declare let $: any;
     }
   ]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   location: string = '';
   routerSubscription: Subscription;
   isLoading=false;
@@ -28,7 +28,10 @@ export class AppComponent implements OnInit, OnDestroy {
         private router: Router,
         private sharedService: SharedService,
         private languageService: LanguageService,
-    ) {}
+        private loadingService: LoadingService
+      ) {this.loadingService.isLoading$.subscribe((loading) => {
+        this.isLoading = loading;
+      });}
 
     ngOnInit(){
         this.recallJsFuntions();
@@ -51,35 +54,5 @@ export class AppComponent implements OnInit, OnDestroy {
             window.scrollTo(0, 0);
         });
     }
-  constructor(
-    private router: Router,
-    private loadingService: LoadingService
-  ) {this.loadingService.isLoading$.subscribe((loading) => {
-    this.isLoading = loading;
-  });}
 
-  ngOnInit(): void {
-   
-
-    this.recallJsFunctions();
-  }
-
-  ngOnDestroy(): void {
-    // Bileşen yok edilirken, routerSubscription'ı temizlemek
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-  }
-
-  // Sayfa geçişlerinde scroll'u sıfırlama işlemi
-  recallJsFunctions(): void {
-    this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
-      .subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          this.location = this.router.url;
-          window.scrollTo(0, 0); // Sayfayı en üst kısma kaydırma
-        }
-      });
-  }
 }
