@@ -1,3 +1,4 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { CaseService } from './../../../services/case/case.service';
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
@@ -10,13 +11,23 @@ import { SharedService } from 'src/app/services/shared.service';
 export class CaseStudiesComponent implements OnInit {
   caseData: any;
 
-  constructor(private caseService: CaseService,
+  constructor(private caseService: CaseService, private loadingService:LoadingService
 ) {}
 
 
 
 ngOnInit(): void {
+
+    try {
+      this.loadingService.show(); // Loader'ı başlat
     this.getCaseData();
+    } catch (error) {
+      console.error("Veri yüklenirken hata oluştu:", error);
+    } finally {
+        setTimeout(() => {
+            this.loadingService.hide();
+        }, 3000);
+    }
 }
 
 

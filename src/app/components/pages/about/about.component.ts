@@ -1,3 +1,4 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AboutService } from 'src/app/services/about/about.service';
@@ -14,13 +15,24 @@ export class AboutComponent implements OnInit {
 	aboutData: any;
 	imagesUrl = environment.imagesUrl;
   
-	constructor(private aboutService: AboutService,
+	constructor(private aboutService: AboutService, private loadingService:LoadingService
   ) {}
   
   
   
   ngOnInit(): void {
+
+
+	  try {
+		this.loadingService.show(); // Loader'ı başlat
 	  this.getAboutData();
+	  } catch (error) {
+		console.error("Veri yüklenirken hata oluştu:", error);
+	  } finally {
+		  setTimeout(() => {
+			  this.loadingService.hide();
+		  }, 3000);
+	  }
   }
   
   

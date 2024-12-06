@@ -1,21 +1,21 @@
+import { LoadingService } from "./../../../services/loading/loading.service";
 import { Component, OnInit } from "@angular/core";
 import { OwlOptions } from "ngx-owl-carousel-o";
 import { HomeService } from "../../../services/home/home.service";
 import { SharedService } from "../../../services/shared.service";
 import { environment } from "src/environments/environment";
-import { TranslatesPipe } from "src/app/services/pipes/translate.pipe";
-import { CurrencyPipe } from "@angular/common";
+
 
 @Component({
     selector: "app-home-one",
     templateUrl: "./home-one.component.html",
     styleUrls: ["./home-one.component.scss"],
-
 })
 export class HomeOneComponent implements OnInit {
     constructor(
         private homeService: HomeService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private loadingService: LoadingService
     ) {}
     // Dynamic data for the banner section
     bannerData: any = {};
@@ -40,12 +40,27 @@ export class HomeOneComponent implements OnInit {
     contactData: any = {};
 
     imagesUrl = environment.imagesUrl;
-    ngOnInit(): void {
-        this.getHomePageData();
-        this.getContact();
-    }
+    ngOnInit() {
+        this.handleLoading();
+      }
+      
+       handleLoading() {
+        try {
+          this.loadingService.show(); // Loader'ı başlat
+           this.getHomePageData(); // HomePage verisi yüklenene kadar bekle
+           this.getContact(); // Contact verisi yüklenene kadar bekle
 
-    getContact(): void {
+        } catch (error) {
+          console.error("Veri yüklenirken hata oluştu:", error);
+        } finally {
+            setTimeout(() => {
+                this.loadingService.hide();
+            }, 3000);
+        }
+      }
+
+
+    getContact()  {
         const languageId = Number(localStorage.getItem("languageId"));
         this.homeService.getContact(languageId).subscribe({
             next: (response) => {
@@ -60,7 +75,7 @@ export class HomeOneComponent implements OnInit {
         });
     }
 
-    getHomePageData(): void {
+    getHomePageData() {
         const languageId = Number(localStorage.getItem("languageId"));
         this.homeService.getHomePage(languageId).subscribe({
             next: (response) => {

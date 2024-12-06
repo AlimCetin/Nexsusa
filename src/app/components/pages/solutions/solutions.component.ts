@@ -1,3 +1,4 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { SolutionsService } from 'src/app/services/solutions/solutions.service';
@@ -13,11 +14,22 @@ export class SolutionsComponent implements OnInit {
 imagesUrl=environment.imagesUrl;
  
   constructor(private solutionsService: SolutionsService,
-    private sharedService: SharedService
+  private loadingService:LoadingService
 ) {}
 
 ngOnInit(): void {
-    this.getSolutionsPageData();
+    
+    try {
+      this.loadingService.show(); // Loader'ı başlat
+this.getSolutionsPageData();
+
+    } catch (error) {
+      console.error("Veri yüklenirken hata oluştu:", error);
+    } finally {
+        setTimeout(() => {
+            this.loadingService.hide();
+        }, 3000);
+    }
 }
 
 
