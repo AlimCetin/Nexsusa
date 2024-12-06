@@ -24,9 +24,8 @@ import { environment } from "src/environments/environment";
     ],
 })
 export class NavbarComponent implements OnInit {
-   
-    logoUrl=environment.logoUrl1;
-    languageDefaultName= localStorage.getItem("languageName");
+    logoUrl = environment.logoUrl1;
+    languageDefaultName = localStorage.getItem("languageName");
     languages: any;
     navbarItems: any[] = [];
     subItems = [];
@@ -70,14 +69,18 @@ export class NavbarComponent implements OnInit {
     constructor(
         private navbarService: NavbarService,
         private sharedService: SharedService,
-        private http: HttpClient
+        private http: HttpClient,
+        private languageService: LanguageService
     ) {}
 
     ngOnInit(): void {
         this.init();
         const languageId = Number(localStorage.getItem("languageId"));
         this.http
-            .get(environment.baseUrl + `HomePageInfo/GetHomePageInfo?languageId=${languageId}`)
+            .get(
+                environment.baseUrl +
+                    `HomePageInfo/GetHomePageInfo?languageId=${languageId}`
+            )
             .subscribe((response: any) => {
                 console.log(response);
                 this.homePageInfo = response.data;
@@ -93,7 +96,10 @@ export class NavbarComponent implements OnInit {
             if (response.isSuccess) {
                 this.languages = response.data;
                 for (const element of response.data) {
-                    if (element.isDefault == true && !localStorage.getItem("languageId") ) {
+                    if (
+                        element.isDefault == true &&
+                        !localStorage.getItem("languageId")
+                    ) {
                         this.languageDefaultName = element.name;
                         localStorage.setItem("languageId", element.id);
                         localStorage.setItem("languageName", element.name);
@@ -144,6 +150,7 @@ export class NavbarComponent implements OnInit {
         localStorage.setItem("languageName", language.name);
         this.languageDefaultName = language.name; // Seçilen dili set et
         localStorage.setItem("languageId", language.id);
+        this.languageService.loadTranslations(language.id); // String kaynaklarını yükle
         window.location.reload();
     }
 }
