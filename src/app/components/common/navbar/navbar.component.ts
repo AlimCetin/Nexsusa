@@ -1,3 +1,4 @@
+import { SocialLinksService } from './../../../services/socialLinks/social-links.service';
 import { Component, OnInit } from "@angular/core";
 
 import {
@@ -31,7 +32,7 @@ export class NavbarComponent implements OnInit {
     subItems = [];
     homePageInfo: any;
     navbarClass: any;
-
+socialLinks:any;
     classApplied = false;
 
     menuItems: { label: string; link: string; children: any[] }[] = [
@@ -70,7 +71,8 @@ export class NavbarComponent implements OnInit {
         private navbarService: NavbarService,
         private sharedService: SharedService,
         private http: HttpClient,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private socialLinksService:SocialLinksService
     ) {}
 
     ngOnInit(): void {
@@ -89,6 +91,7 @@ export class NavbarComponent implements OnInit {
 
     async init() {
         await this.getLanguages();
+        await this.getSocialLinksData();
     }
     async getLanguages() {
         return await this.sharedService.getLanguages().then((response: any) => {
@@ -153,4 +156,20 @@ export class NavbarComponent implements OnInit {
         this.languageService.loadTranslations(language.id); // String kaynaklarını yükle
         window.location.reload();
     }
+    getSocialLinksData(): void {
+          this.socialLinksService.getSocialLinks().subscribe({
+            next: (response) => {
+              console.log('about Data:', response); // Veriyi kontrol etmek için
+              if (response.statusCode==200) {
+                this.socialLinks=response.data
+              }
+              
+            },
+            error: (err) => {
+              console.error('case verisi alınamadı:', err);
+            },
+          });
+      }
+        
+    
 }

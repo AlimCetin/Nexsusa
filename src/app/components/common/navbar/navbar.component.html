@@ -31,9 +31,9 @@
             <div class="col-lg-2 col-sm-6 text-end pl-0">
                 <div class="header-content-right">
                     <ul class="header-social">
-                        <li *ngFor="let social of homePageInfo?.socialLinks">
+                        <li *ngFor="let social of socialLinks">
                             <a [href]="social.url" target="_blank">
-                                <i [class]="social.name"></i>
+                                <i [class]="social.iconClass"></i>
                             </a>
                         </li>
                     </ul>
