@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
     navbarClass: any;
 socialLinks:any;
     classApplied = false;
-
+    classApplied1 = false;
     menuItems: { label: string; link: string; children: any[] }[] = [
         {
             label: "Home",
@@ -52,7 +52,7 @@ socialLinks:any;
             children: [],
         },
         {
-            label: "Case Studies",
+            label: "CaseStudies",
             link: "case-studies",
             children: [],
         },
@@ -66,7 +66,12 @@ socialLinks:any;
     toggleClass() {
         this.classApplied = !this.classApplied;
     }
+    isLanguageMenuOpen = false;
 
+    // Menü durumunu değiştiren metot
+    toggleLanguageMenu() {
+      this.isLanguageMenuOpen = !this.isLanguageMenuOpen;
+    }
     constructor(
         private navbarService: NavbarService,
         private sharedService: SharedService,
@@ -155,6 +160,7 @@ socialLinks:any;
         localStorage.setItem("languageId", language.id);
         this.languageService.loadTranslations(language.id); // String kaynaklarını yükle
         window.location.reload();
+        this.isLanguageMenuOpen = false;
     }
     getSocialLinksData(): void {
           this.socialLinksService.getSocialLinks().subscribe({

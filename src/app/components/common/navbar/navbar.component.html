@@ -3,9 +3,7 @@
         <div class="row align-items-center">
             <div class="col-lg-2 col-sm-0">
                 <div class="logo">
-                    <a routerLink="/"
-                        ><img [src]="logoUrl" alt="logo"
-                    /></a>
+                    <a routerLink="/"><img [src]="logoUrl" alt="logo" /></a>
                 </div>
             </div>
 
@@ -63,6 +61,7 @@
                         <span class="middle-bar"></span>
                         <span class="bottom-bar"></span>
                     </span>
+                    
                 </button>
                 <div
                     class="collapse navbar-collapse mean-menu"
@@ -78,7 +77,9 @@
                                 routerLinkActive="active"
                                 [routerLinkActiveOptions]="{ exact: true }"
                             >
-                            {{ 'navbar.' + item.label | translates | async }}
+                                {{
+                                    "navbar." + item.label | translates | async
+                                }}
                             </a>
 
                             <!-- Çocuk öğeleri olan birinci seviye öğe -->
@@ -91,7 +92,10 @@
                             </a>
 
                             <!-- Çok seviyeli alt menüleri oluşturmak için yeniden kullanılan şablon -->
-                            <ul *ngIf="item.children.length" class="dropdown-menu">
+                            <ul
+                                *ngIf="item.children.length"
+                                class="dropdown-menu"
+                            >
                                 <ng-container
                                     *ngTemplateOutlet="
                                         recursiveMenu;
@@ -136,33 +140,36 @@
                             </ul>
                         </li>
                     </ng-template>
-                </div>
-
-                <div class="collapse navbar-collapse mean-menu" id="navbarLang">
-                    <ul class="navbar-nav text-left">
-                        <li class="nav-item">
-                            <a
-                                href="javascript:void(0)"
-                                class="nav-link dropdown-toggle"
-                            >
-                                {{ languageDefaultName }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li
-                                    *ngFor="let item of languages"
-                                    class="nav-item"
+                    <div class="collapse navbar-collapse mean-menu" id="navbarLang">
+                        <ul class="navbar-nav text-left">
+                            <li class="nav-item">
+                                <!-- Aç/Kapa işlemi -->
+                                <a
+                                    href="javascript:void(0)"
+                                    class="nav-link dropdown-toggle"
+                                    (click)="toggleLanguageMenu()"
                                 >
-                                    <a
-                                        class="dropdown-item"
-                                        href="#"
-                                        (click)="selectLanguage(item)"
-                                    >
-                                        {{ item.name }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                                    {{ languageDefaultName }}
+                                </a>
+                    
+                                <!-- Menü açık ise göster -->
+                                
+                                    <ul class="dropdown-menu" *ngIf="isLanguageMenuOpen" id="langItem">
+                                        <li *ngFor="let item of languages" class="nav-item">
+                                            <a
+                                                class="dropdown-item"
+                                                href="#"
+                                                (click)="selectLanguage(item)"
+                                            >
+                                                {{ item.name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                    
                 </div>
             </nav>
         </div>
