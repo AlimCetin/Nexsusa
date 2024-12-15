@@ -1,92 +1,108 @@
-<div class="page-title-area" >
-  </div>
+<div class="page-title-area"></div>
 <!-- Company Section -->
 <section class="home-company-area">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 col-md-12">
-          <div class="company-content">
-            <div class="company-tittle">
-              <h2>{{ aboutData?.ourCompany?.title }}</h2>
-              <p >{{  aboutData?.ourCompany?.description }}</p>
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="company-content">
+                    <div class="company-tittle">
+                        <h2>{{ aboutData?.ourCompany?.title }}</h2>
+                        <p>{{ aboutData?.ourCompany?.description }}</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="company-img">
-            <img [src]="imagesUrl+aboutData?.ourCompany?.imageUrl" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Technology Section -->
-  <section class="technology-area ptb-100 bg-color">
-    <div class="container">
-      <div class="row align-items-center choose-c">
-        <div class="col-lg-6">
-          <video width="100%" height="100%" controls>
-            <source [src]="aboutData?.videoUrl" type="video/mp4">
-          </video>
-        </div>
-        <div class="col-lg-6">
-          <div class="technology-content">
-            <h2>{{ aboutData?.title }}</h2>
-            <p >{{ aboutData?.description }}</p>
-            <a routerLink="/contact" class="box-btn">{{'translates.contactUs' | translates| async}}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Features Section -->
-  <section class="feature-area ptb-100">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="contnet">
-            <div class="feature-tittle">
-              <h2>{{ aboutData?.whoWeAre?.title }}</h2>
-              <p>{{ aboutData?.whoWeAre?.description }}</p>
+            <div class="col-lg-6 col-md-12">
+                <div class="company-img">
+                    <img [src]="imagesUrl + aboutData?.ourCompany?.imageUrl" />
+                </div>
             </div>
-            <ul>
-              <li *ngFor="let feature of aboutData?.whoWeAre?.whoWeAreItems">
-                <i class="flaticon-correct"></i> {{ feature }}
-              </li>
-            </ul>
-            <a routerLink="/contact" class="box-btn">{{'translates.letsTalk' | translates| async}}</a>
-          </div>
         </div>
-        <div class="col-lg-6">
-          <div class="feature-img">
-            <img src="assets/images/feature-img.png" alt="feature" />
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
-  
-  <!-- Testimonials Section -->
-  <section class="client-area ptb-100 bg-color">
+</section>
+
+<!-- Technology Section -->
+<section class="technology-area ptb-100 bg-color">
     <div class="container">
-      <div class="section-title">
-        <h2>{{aboutData?.clientSays?.title}}</h2>
-            <p>{{aboutData?.clientSays?.description}}</p>
-        </div>
-      <div class="client-wrap">
-        <owl-carousel-o [options]="clientWrap">
-          <ng-template carouselSlide *ngFor="let client of aboutData?.clientSays?.clientSaysItems">
-            <div class="single-client">
-              <img [src]="client?.imageUrl" >
-              <p>{{ client?.description }}</p>
-              <h3>{{ client?.fullName }}</h3>
-              <span>{{ client?.branch }}</span>
+        <div class="row align-items-center choose-c">
+            <div class="col-lg-6">
+                <iframe
+                    [src]="safeURL"
+                    frameborder="0"
+                    allowfullscreen
+                    style=" width:100%;"
+                    height="400"
+                ></iframe>
             </div>
-          </ng-template>
-        </owl-carousel-o>
-      </div>
+            <div class="col-lg-6">
+                <div class="technology-content">
+                    <h2>{{ aboutData?.title }}</h2>
+                    <p style="text-align: justify;">{{ aboutData?.description }}</p>
+                    <a routerLink="/contact" class="box-btn">{{
+                        "translates.contactUs" | translates | async
+                    }}</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-  
+</section>
+
+<!-- Features Section -->
+<section class="feature-area ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="contnet">
+                    <div class="feature-tittle">
+                        <h2>{{ aboutData?.whoWeAre?.title }}</h2>
+                        <p>{{ aboutData?.whoWeAre?.description }}</p>
+                    </div>
+                    <ul>
+                        <li
+                            *ngFor="
+                                let feature of aboutData?.whoWeAre
+                                    ?.whoWeAreItems
+                            "
+                        >
+                            <i class="flaticon-correct"></i> {{ feature }}
+                        </li>
+                    </ul>
+                    <a routerLink="/contact" class="box-btn">{{
+                        "translates.letsTalk" | translates | async
+                    }}</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-img">
+                    <img src="assets/images/feature-img.png" alt="feature" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="client-area ptb-100 bg-color">
+    <div class="container">
+        <div class="section-title">
+            <h2>{{ aboutData?.clientSays?.title }}</h2>
+            <p>{{ aboutData?.clientSays?.description }}</p>
+        </div>
+        <div class="client-wrap">
+            <owl-carousel-o [options]="clientWrap">
+                <ng-template
+                    carouselSlide
+                    *ngFor="
+                        let client of aboutData?.clientSays?.clientSaysItems
+                    "
+                >
+                    <div class="single-client">
+                        <img [src]="client?.imageUrl" />
+                        <p>{{ client?.description }}</p>
+                        <h3>{{ client?.fullName }}</h3>
+                        <span>{{ client?.branch }}</span>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
